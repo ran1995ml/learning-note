@@ -1,4 +1,4 @@
-package com.ran.java.effective.effective_2;
+package com.ran.java.effective.item_2;
 
 /**
  * NutritionFacts
