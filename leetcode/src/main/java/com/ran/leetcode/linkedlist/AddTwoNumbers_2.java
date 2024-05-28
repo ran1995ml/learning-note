@@ -1,4 +1,4 @@
-package com.ran.leetcode.array;
+package com.ran.leetcode.linkedlist;
 
 import com.ran.leetcode.entity.ListNode;
 

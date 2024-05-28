@@ -1,4 +1,4 @@
-package com.ran.java.effective.item_7;
+package com.ran.java.effective.item_29;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -7,12 +7,12 @@ import java.util.EmptyStackException;
  * Stack
  *
  * @author rwei
- * @since 2024/4/23 10:29
+ * @since 2024/5/14 09:56
  */
-public class Stack {
+public class Stack<E> {
     private Object[] elements;
 
-    private int size = 0;
+    private int size;
 
     private static final int DEFAULT_INITIAL_CAPACITY = 16;
 
@@ -20,17 +20,16 @@ public class Stack {
         elements = new Object[DEFAULT_INITIAL_CAPACITY];
     }
 
-    public void push(Object e) {
+    public void push(E e) {
         ensureCapacity();
         elements[size++] = e;
     }
 
-    public Object pop() {
+    public E pop() {
         if (size == 0) {
             throw new EmptyStackException();
         }
-        Object result = elements[--size];
-        //消除过期引用
+        @SuppressWarnings("unchecked") E result = (E) elements[--size];
         elements[size] = null;
         return result;
     }

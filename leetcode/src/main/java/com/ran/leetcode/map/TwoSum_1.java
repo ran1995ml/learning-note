@@ -1,4 +1,4 @@
-package com.ran.leetcode.array;
+package com.ran.leetcode.map;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * TwoSum_1
- *
+ * 用Map降低复杂度
  * @author rwei
  * @since 2024/5/11 14:17
  */
