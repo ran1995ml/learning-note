@@ -7,12 +7,13 @@ import java.util.Arrays;
 /**
  * RemoveNthFromEnd_19
  * 双指针解
+ *
  * @author rwei
  * @since 2024/5/19 18:18
  */
 public class RemoveNthFromEnd_19 {
     public static void main(String[] args) {
-        int[] arrays = {1,2,3,4,5};
+        int[] arrays = {1, 2, 3, 4, 5};
         ListNode head = ListNode.convertArray2LinkedList(arrays);
         int n = 1;
         RemoveNthFromEnd_19 obj = new RemoveNthFromEnd_19();
