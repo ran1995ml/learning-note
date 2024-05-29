@@ -12,8 +12,8 @@ import java.util.Arrays;
  */
 public class AddTwoNumbers_2 {
     public static void main(String[] args) {
-        int[] nums1 = {9,9,9,9,9,9,9};
-        int[] nums2 = {9,9,9,9};
+        int[] nums1 = {9, 9, 9, 9, 9, 9, 9};
+        int[] nums2 = {9, 9, 9, 9};
         AddTwoNumbers_2 obj = new AddTwoNumbers_2();
         ListNode l1 = ListNode.convertArray2LinkedList(nums1);
         ListNode l2 = ListNode.convertArray2LinkedList(nums2);

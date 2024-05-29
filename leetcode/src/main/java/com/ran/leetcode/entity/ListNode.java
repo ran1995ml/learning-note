@@ -1,7 +1,6 @@
 package com.ran.leetcode.entity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,7 +14,8 @@ public class ListNode {
 
     public ListNode next;
 
-    public ListNode() {}
+    public ListNode() {
+    }
 
     public ListNode(int val) {
         this.val = val;
@@ -39,7 +39,7 @@ public class ListNode {
     public static int[] convertLinkedList2Array(ListNode head) {
         List<Integer> list = new ArrayList<>();
 
-        while (head!=null) {
+        while (head != null) {
             list.add(head.val);
             head = head.next;
         }

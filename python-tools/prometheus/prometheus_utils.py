@@ -16,4 +16,3 @@ try:
 except Exception as e:
     gauge.set(1)
     push_to_gateway(PUSHGATEWAY_URL, job="ei-api-log", registry=registry)
-
