@@ -15,7 +15,7 @@ public interface MyServiceProvider {
 服务实现：
 
 ```java
-public class MyServiceImpl1 implements MyServiceProvider {
+public class MyServiceProviderImpl1 implements MyServiceProvider {
     public String getName() {
         return "my service 1";
     }
@@ -24,9 +24,9 @@ public class MyServiceImpl1 implements MyServiceProvider {
 
 注册服务，以便使用方发现服务，在 `/META-INF/services/` 目录下创建文件 `com.ran.spi.MyServiceProvider`
 
-```java
-com.ran.spi.impl.MyServiceImpl1
-        com.ran.spi.impl.MyServiceImpl2
+```
+com.ran.spi.impl.MyServiceProviderImpl1
+com.ran.spi.impl.MyServiceProviderImpl2
 ```
 
 ## 参考文献
