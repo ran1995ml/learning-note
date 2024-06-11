@@ -12,6 +12,7 @@
         <module>java/effective-java</module>
         <module>leetcode</module>
         <module>java/spi</module>
+        <module>java/jackson</module>
     </modules>
 
     <properties>

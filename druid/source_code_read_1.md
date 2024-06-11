@@ -129,3 +129,14 @@ public class Lifecycle
 }
 ```
 
+# Emitter
+
+对事件的抽象：
+
+<img src="./picture/event.png" alt="runnable" style="zoom:50%;" />
+
+对 `emitter` 的抽象：
+
+<img src="./picture/emitter.png" alt="runnable" style="zoom:50%;" />
+
+发出一个事件，方法不能被阻塞或抛异常。如果 `Emitter` 的实现收到太多的事件，内部队列已满，应该丢弃事件；如果收到无效的输入，应该打印警告日志而不能抛异常；对警告日志应该加限制，避免日志过多。
