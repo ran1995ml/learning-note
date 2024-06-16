@@ -1,10 +1,7 @@
 package com.ran.leetcode.greedy;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -15,7 +12,7 @@ import java.util.List;
  */
 public class MergeIntervals_56 {
     public static void main(String[] args) {
-        int[][] intervals = {{1,4},{2,3}};
+        int[][] intervals = {{1, 4}, {2, 3}};
         MergeIntervals_56 obj = new MergeIntervals_56();
         System.out.println(Arrays.deepToString(obj.merge(intervals)));
     }

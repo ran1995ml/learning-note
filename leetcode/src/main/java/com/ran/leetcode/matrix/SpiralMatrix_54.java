@@ -12,7 +12,7 @@ import java.util.List;
 public class SpiralMatrix_54 {
     public static void main(String[] args) {
         SpiralMatrix_54 obj = new SpiralMatrix_54();
-        int[][] matrix = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}};
+        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
         List<Integer> ans = obj.spiralOrder(matrix);
         System.out.println(ans.toString());
     }
