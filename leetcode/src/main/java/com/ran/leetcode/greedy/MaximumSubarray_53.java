@@ -9,7 +9,7 @@ package com.ran.leetcode.greedy;
 public class MaximumSubarray_53 {
     public static void main(String[] args) {
         MaximumSubarray_53 obj = new MaximumSubarray_53();
-        int[] nums = {5,4,-1,7,8};
+        int[] nums = {5, 4, -1, 7, 8};
         System.out.println(obj.maxSubArray(nums));
     }
 
