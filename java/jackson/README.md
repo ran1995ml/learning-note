@@ -28,3 +28,29 @@ public class EventMapSerializer extends JsonSerializer<EventMap>
 }
 ```
 
+### @JsonTypeInfo
+
+指定 `JSON` 序列化反序列化如何指定类型信息 
+
+```java
+//用名称识别类型，类型信息存储在JSON对象的type字段
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+```
+
+### @JsonSubTypes
+
+指定接口的子类型和它们的类型名称
+
+```java
+@JsonSubTypes(value = {
+    @JsonSubTypes.Type(name = "loadByPeriod", value = PeriodLoadRule.class),
+    @JsonSubTypes.Type(name = "loadByInterval", value = IntervalLoadRule.class),
+    @JsonSubTypes.Type(name = PeriodBroadcastDistributionRule.TYPE, value = PeriodBroadcastDistributionRule.class)
+})
+```
+
+和 `@JsonTypeInfo` 配合使用，`name` 用于 `JSON` 中的 `type` 属性，`value` 对应子类型的类。
+
+### @JsonCreator
+
+指定 `Jackson` 在反序列化时使用的构造方法或工厂方法

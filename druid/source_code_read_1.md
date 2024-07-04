@@ -19,7 +19,7 @@ public class Main
 }
 ```
 
-<img src="./picture/runnable.png" alt="runnable" style="zoom:50%;" />
+<img src="picture/View.png" alt="runnable" style="zoom:50%;" />
 
 服务启动使用了模板方法模式。服务的启动：
 
@@ -140,3 +140,47 @@ public class Lifecycle
 <img src="./picture/emitter.png" alt="runnable" style="zoom:50%;" />
 
 发出一个事件，方法不能被阻塞或抛异常。如果 `Emitter` 的实现收到太多的事件，内部队列已满，应该丢弃事件；如果收到无效的输入，应该打印警告日志而不能抛异常；对警告日志应该加限制，避免日志过多。
+
+# 元数据管理
+
+<img src="./picture/metadatamanager.png" alt="runnable" style="zoom:100%;" />
+
+`MetadataManager` 封装所有元数据管理类：
+
+- `CoordinatorConfigManager`：
+
+# 节点间的服务通信
+
+<img src="./picture/ServiceFind.png" alt="runnable" style="zoom:100%;" />
+
+
+
+## 服务注册
+
+<img src="./picture/DruidNodeAnnouncer.png" alt="runnable" style="zoom:50%;" />
+
+服务注册用 `DruidNodeAnnouncer` 实现，服务启动会将信息保留在 `/druid/internal-discovery/NodeRole` 目录下，若用 `Zookeeper` 做协调者。
+
+## 服务发现
+
+<img src="./picture/DruidNodeDiscovery.png" alt="runnable" style="zoom:50%;" />
+
+`DruidNodeDiscovery` 为主题，`DruidNodeDiscovery.Listener` 为观察者，用于服务发现。`ServiceDruidNodeDiscovery` 实现主题，维护 `listeners`。`FilteringUpstreamListener` 实现观察者，按服务类型过滤。
+
+## InventoryView
+
+<img src="./picture/InventoryView.png" alt="runnable" style="zoom:100%;" />
+
+`InventoryView` 用于查看服务的状态，及各个服务上的段分布。
+
+# Overlord
+
+`Overlord` 启动过程中，会初始化 `SegmentAllocationQueue`，在 `SERVER` 状态之前。选举成为 `leader` 后，`HttpRemoteTaskRunner` 启动。
+
+`TaskMaster` 封装了 `Overlord` 的生命周期，收集任务的统计信息。
+
+## TaskQueue
+
+任务生产者和 `TaskRunner` 交互的接口，`TaskQueue` 接受由 `add` 方法添加的任务，提交给 `TaskRunner` 执行。
+
+`TaskStorage`，封装对元数据库的访问方法，查询任务。

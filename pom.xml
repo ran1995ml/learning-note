@@ -13,6 +13,8 @@
         <module>leetcode</module>
         <module>java/spi</module>
         <module>java/jackson</module>
+        <module>design-pattern</module>
+        <module>java/concurrency</module>
     </modules>
 
     <properties>
