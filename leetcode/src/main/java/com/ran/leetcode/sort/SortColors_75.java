@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class SortColors_75 {
     public static void main(String[] args) {
         SortColors_75 obj = new SortColors_75();
-        int[] nums = {2,0,1};
+        int[] nums = {2, 0, 1};
         obj.sortColors(nums);
         System.out.println(Arrays.toString(nums));
     }
