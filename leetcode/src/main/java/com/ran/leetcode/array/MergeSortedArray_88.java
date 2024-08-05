@@ -27,7 +27,7 @@ public class MergeSortedArray_88 {
             if (p1 >= 0 && p2 >= 0) {
                 nums1[i] = nums1[p1] > nums2[p2] ? nums1[p1--] : nums2[p2--];
             } else if (p1 >= 0 || p2 >= 0) {
-                nums1[i] = p1 >= 0? nums1[p1--] : nums2[p2--];
+                nums1[i] = p1 >= 0 ? nums1[p1--] : nums2[p2--];
             }
         }
     }

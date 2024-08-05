@@ -185,7 +185,7 @@ public class Lifecycle
 
 # Ingestion
 
-## 任务创建过程
+## 任务创建
 
 提交任务：
 
@@ -195,6 +195,29 @@ public class Lifecycle
 4. `TaskRunner` 更新 `tasks` 和 `pendingTaskIds`，任务先置为 `pending` 状态；
 5. `TaskRunner` 有线程池定期处理 `pending` 的任务，遍历 `pendingTaskIds`，按照设置的策略寻找 `worker` 调度；
 6. 向 `worker` 发送请求创建任务
+
+`worker` 创建任务
+
+### WorkerTaskManager
+
+管理分配到 `worker` 上的任务，初始化流程：
+
+1. 创建初始化任务的 `tmp` 目录 `baseTaskDir/workerTaskManagerTmp`；
+2. 注册 `TaskRunner` 的 `listener`，获取当前已知任务的状态；
+3. 恢复上次运行的任务，更新内存，注册 `feature`；
+4. 初始化分配的任务，创建 `assignedTaskDir`，启动 `peon` 执行任务，发布任务到 `zk`，等任务分配成功，删除 `assignedTaskDir`；
+5. 从 `completedTaskDir` 获取已完成的任务，加载进内存；
+6. 启动线程定期清理已完成的任务，发布任务已完成的消息到 `zk`，删除已完成任务的目录。
+
+`peon` 启动任务，会为任务选择 `slot`，执行指令启动新的 `jvm`。每个 `slot` 使用的处理器个数，会用物理机可用的处理器个数除以配置的 `slot` 总数计算。每个 `slot` 有一个目录，以循环的方式选择 `slot`，选择一个没有在使用的 `slot`。
+
+任务启动后，会将日志写到临时目录，如果配置了将日志存到 `deepStorage`，任务完成后将日志和 `report.json` 写到 `deepStorage`。删除任务的目录。
+
+`ExecutorLifecycle` 封装了任务的生命周期，启动后创建 `task.json` 和 `status.json`。为避免同一个任务创建两次，锁定文件。监控父进程，若父进程退出，终止当前进程。
+
+`SingleTaskBackgroundRunner` 用单个线程池执行任务，是任务真正开始执行的入口。
+
+
 
 
 

@@ -10,13 +10,14 @@ import java.util.Arrays;
  * 1,3,2,4,5,6
  * 1,4,3,2,5,6
  * 1,5,4,3,2,6
+ *
  * @author rwei
  * @since 2024/7/15 23:37
  */
 public class ReverseLinkedListII_92 {
     public static void main(String[] args) {
         ReverseLinkedListII_92 obj = new ReverseLinkedListII_92();
-        int[] nums = {1,2,3,4,5,6};
+        int[] nums = {1, 2, 3, 4, 5, 6};
         int left = 2;
         int right = 5;
         ListNode head = ListNode.convertArray2LinkedList(nums);
@@ -24,10 +25,10 @@ public class ReverseLinkedListII_92 {
         System.out.println(Arrays.toString(ListNode.convertLinkedList2Array(listNode)));
     }
 
-     // 1,2,3,4,5,6
-     // 1,3,2,4,5,6
-     // 1,4,3,2,5,6
-     // 1,5,4,3,2,6
+    // 1,2,3,4,5,6
+    // 1,3,2,4,5,6
+    // 1,4,3,2,5,6
+    // 1,5,4,3,2,6
     public ListNode reverseBetween(ListNode head, int left, int right) {
         ListNode node = new ListNode(-1);
         node.next = head;
@@ -44,7 +45,6 @@ public class ReverseLinkedListII_92 {
             next.next = pre.next;
             pre.next = next;
         }
-
         return node.next;
     }
 }
