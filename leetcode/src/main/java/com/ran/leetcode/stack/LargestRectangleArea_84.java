@@ -1,6 +1,5 @@
 package com.ran.leetcode.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Stack;
 public class LargestRectangleArea_84 {
     public static void main(String[] args) {
         LargestRectangleArea_84 obj = new LargestRectangleArea_84();
-        int[] heights = {2,1,2};
+        int[] heights = {2, 1, 2};
         System.out.println(obj.largestRectangleArea(heights));
     }
 

@@ -11,7 +11,7 @@ import java.util.Stack;
 public class TrapRainWater_42 {
     public static void main(String[] args) {
         TrapRainWater_42 obj = new TrapRainWater_42();
-        int[] height = {4,2,0,3,2,5};
+        int[] height = {4, 2, 0, 3, 2, 5};
         System.out.println(obj.trap(height));
     }
 
