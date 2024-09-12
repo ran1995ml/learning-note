@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.factory.factory;
 
 import com.ran.pattern.factory.Pizza;
@@ -18,12 +17,4 @@ public abstract class PizzaStore {
     }
 
     public abstract Pizza createPizza(String type);
-=======
-package com.ran.pattern.factory.factory;/** 
- * PizzaStore
- * 
- * @author rwei
- * @since 2024/8/7 10:23
- */public class PizzaStore {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

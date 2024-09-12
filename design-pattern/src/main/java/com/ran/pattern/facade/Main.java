@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.facade;
 
 /**
@@ -16,12 +15,4 @@ public class Main {
         System.out.println();
         theaterFacade.endMovie();
     }
-=======
-package com.ran.pattern.facade;/** 
- * Main
- * 
- * @author rwei
- * @since 2024/8/17 19:41
- */public class Main {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }
