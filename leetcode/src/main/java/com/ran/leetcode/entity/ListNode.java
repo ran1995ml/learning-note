@@ -47,4 +47,13 @@ public class ListNode {
                 .mapToInt(Integer::intValue)
                 .toArray();
     }
+
+    public static ListNode findNthNode(ListNode head, int n) {
+        ListNode node = head;
+        for (int i = 1; i < n; i++) {
+            if (node == null) return null;
+            node = node.next;
+        }
+        return node;
+    }
 }
