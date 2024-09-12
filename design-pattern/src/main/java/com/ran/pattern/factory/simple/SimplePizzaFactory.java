@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.factory.simple;
 
 import com.ran.pattern.factory.CheesePizza;
@@ -22,12 +21,4 @@ public class SimplePizzaFactory {
         }
         return pizza;
     }
-=======
-package com.ran.pattern.factory.simple;/** 
- * SimplePizzaFactory
- * 
- * @author rwei
- * @since 2024/8/6 22:34
- */public class SimplePizzaFactory {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

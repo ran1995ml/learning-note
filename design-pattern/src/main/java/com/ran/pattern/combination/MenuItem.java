@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.combination;
 
 import java.util.Iterator;
@@ -46,12 +45,4 @@ public class MenuItem extends MenuComponent {
     public void print() {
         System.out.printf("name: %s, description: %s, price: %s%n", this.name, this.description, this.price);
     }
-=======
-package com.ran.pattern.combination;/** 
- * MenuItem
- * 
- * @author rwei
- * @since 2024/9/8 16:46
- */public class MenuItem {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

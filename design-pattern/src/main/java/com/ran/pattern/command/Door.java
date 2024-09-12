@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.command;
 
 /**
@@ -21,12 +20,4 @@ public class Door {
     public void off() {
         System.out.println(name + "off door");
     }
-=======
-package com.ran.pattern.command;/** 
- * Door
- * 
- * @author rwei
- * @since 2024/8/15 12:47
- */public class Door {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

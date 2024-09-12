@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.iterator;
 
 import java.util.ArrayList;
@@ -28,12 +27,4 @@ public class PancakeHouseMenu implements Menu {
     public Iterator<MenuItem> createIterator() {
         return new PancakeHouseMenuIterator(menuItems);
     }
-=======
-package com.ran.pattern.iterator;/** 
- * PancakeHouseMenu
- * 
- * @author rwei
- * @since 2024/8/20 13:53
- */public class PancakeHouseMenu {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

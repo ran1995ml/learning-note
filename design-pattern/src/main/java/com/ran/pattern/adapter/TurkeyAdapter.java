@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.adapter;
 
 /**
@@ -26,12 +25,4 @@ public class TurkeyAdapter implements Duck {
             turkey.fly();
         }
     }
-=======
-package com.ran.pattern.adapter;/** 
- * TurkeyAdapter
- * 
- * @author rwei
- * @since 2024/8/15 14:31
- */public class TurkeyAdapter {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

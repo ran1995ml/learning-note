@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.iterator;
 
 /**
@@ -46,12 +45,4 @@ public class MenuItem {
                 ", price=" + price +
                 '}';
     }
-=======
-package com.ran.pattern.iterator;/** 
- * MenuItem
- * 
- * @author rwei
- * @since 2024/8/20 13:45
- */public class MenuItem {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

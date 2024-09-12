@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.iterator;
 
 /**
@@ -32,12 +31,4 @@ public class Waitress {
             System.out.println(menuItem);
         }
     }
-=======
-package com.ran.pattern.iterator;/** 
- * Waitress
- * 
- * @author rwei
- * @since 2024/8/20 21:50
- */public class Waitress {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

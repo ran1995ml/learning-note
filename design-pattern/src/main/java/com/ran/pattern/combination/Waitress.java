@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.ran.pattern.combination;
 
 import java.util.Iterator;
@@ -23,12 +22,4 @@ public class Waitress {
             component.print();
         }
     }
-=======
-package com.ran.pattern.combination;/** 
- * Waitress
- * 
- * @author rwei
- * @since 2024/9/8 16:57
- */public class Waitress {
->>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }
