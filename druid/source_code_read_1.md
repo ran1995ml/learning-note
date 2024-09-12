@@ -181,7 +181,15 @@ public class Lifecycle
 
 # Segment
 
-一个数据源的一个时间间隔可存在多个段，这些段组成一个块，由 `shardSpec` 决定分片数据。块的所有段都完成，才能开放查询。
+## 版本系统
+
+`Druid` 里，数据段和间隔紧密耦合。
+
+`DataSegment`：数据段的元数据，不可变对象。
+
+`Overshadowable` 
+
+`SegmentId`，`DataSegment` 的标识符。此类必须针对常驻内存占用进行优化，因为段数据在 `Broker` 和 `Coordinator` 消耗了很多堆内存。
 
 # Ingestion
 
@@ -217,7 +225,96 @@ public class Lifecycle
 
 `SingleTaskBackgroundRunner` 用单个线程池执行任务，是任务真正开始执行的入口。
 
+`SeekableStreamIndexTaskRunner`，对任务运行逻辑的抽象。运行流程：
 
+- 任务状态置为 `STARTING`，初始化工具类；
+
+- 宣布 `PEON` 的存在，创建段，宣布段的存在到路径 `/druid/segments`。
+
+- 初始化序列，反系列化 `checkpoints`。先尝试从 `sequences.json` 恢复，如果恢复失败，从 `context` 获取 `checkpoints`，获取不到 `checkpoints`，从 `ioConfig` 取每个分区的偏移量作为第一个版本。此过程得到每个版本每个分区的偏移量，结果是初始化成员变量 `sequences`
+
+  ```java
+  private volatile CopyOnWriteArrayList<SequenceMetadata<PartitionIdType, SequenceOffsetType>> sequences;
+  ```
+
+- 初始化 `currOffsets`，如果有持久化的元数据，直接赋值给 `currOffsets`，没有则取 `sequences` 
+
+  ```java
+  private final ConcurrentMap<PartitionIdType, SequenceOffsetType> currOffsets = new ConcurrentHashMap<>();
+  ```
+
+- 如果所有分区均以消费到 `endOffsets`，添加序列到 `publishingSequences`。持久化到目前为止摄取的所有数据。
+
+- 分配分区，消费者根据 `currOffsets` 定位到每个分区的偏移量。
+
+- 摄取状态更新为 `BUILD_SEGMENTS`，任务状态更新为 `READING`，进入循环，循环终止条件是分配的分区个数为0。
+
+- 每次循环，检查是否处理过暂停请求，暂停时检查分区分配是否变化。
+
+- 如果任务收到终止请求或者 `setEndOffsets` 被调用，序列消费结束，状态变为 `PUBLISHING`。
+
+- 收到终止请求，退出循环。
+
+- 所有分区都消费到了 `endOffsets`，开始 `publish`。`publish` 完成注册 `handoff`。
+
+摄取任务的运行逻辑抽象：`SeekableStreamIndexTaskRunner`。一个任务生命周期的状态：
+
+```java
+public enum Status
+{
+  NOT_STARTED,
+  STARTING,
+  READING,
+  PAUSED,
+  PUBLISHING
+}
+```
+
+`IOConfig`，决定如何从数据源获取数据。
+
+`endOffsets`：`Map<PartitionId, Offset>`，存储每个分区停止读的偏移量。
+
+`lastReadOffsets`：`Map<PartitionId, Offset>`，最近读过的每个分区的偏移量。
+
+`currOffsets`：`Map<PartitionId, Offset>`，每个分区的起始偏移量。
+
+`lastPersistedOffsets`：`Map<PartitionId, Offset>`，最近持久化的偏移量。
+
+`publishingSequences`：`Set<String>`，正在发布的序列。
+
+`sequences`：`CopyOnWriteArrayList<SequenceMetadata<PartitionIdType, SequenceOffsetType>>`，最近几次的 `checkpoint` 。
+
+任务进入执行逻辑后，状态变为 `STARTING`。任务消费数据，需要知道从哪个数据源消费，对于流式摄取需要知道消费哪些分区，从哪个偏移量开始消费。任务首先初始化序列，该过程是对 `sequences` 做初始化。
+
+先尝试恢复上次保存的序列文件 `sequences.json`。如果恢复失败，从 `context` 里反序列化。`context` 里没有，即 `supervisor` 是首次消费，从 `IOConfig` 获取。`context` 里的偏移量是自己维护的，`IOConfig` 是从 `Kafka` 获取的。
+
+初始化消费者，`RecordSupplier` 是对不同数据源消费者对包装。
+
+初始化 `currOffsets`，该任务要消费的分区起始偏移量。先查看本地是否有持久化的段，恢复提交的元数据，赋值给 `currOffsets`。如果没有持久化的元数据，取 `sequences` 的最老版本赋值给 `currOffsets`。至此，任务消费的序列信息已经初始化完毕。
+
+下一步，开始消费数据。摄取状态变更为 `BUILD_SEGMENTS`，任务状态变为 `READING`，开始消费数据，终止条件是分配的分区个数为0。
+
+使用 `RecordSupplier` 从数据源拉取数据， `Appenderator` 添加记录，每读一条记录，更新 `lastReadOffsets` 和 `currOffsets`。
+
+如果该记录加进来之后该段的数据条数超过阈值，另起一个新段，或者内存中的数据总条数大于阈值，将数据持久化到磁盘。此时会对元数据做一次 `checkpoint`，先暂停读取数据，发送 `checkpoint` 请求，记录此时读取到的各个分区的偏移量。
+
+收到暂停请求，任务状态变为 `PAUSED`，会一直阻塞等待唤醒。
+
+每次循环，比较 `currOffsets` 和 `sequences`，看是否达到了 `endOffsets`。如果分配的所有分区都消费到了 `endOffset`，会触发推送数据，创建 `publishFuture` 和 `handoffFuture`。`publishFuture` 完成，`sequences` 会删除对应的序列。等待 `coordinator` 加载完所有的段，任务完成。
+
+ `sequences` 的最新序列调用了 `setEndOffsets`，`assignment` 为空，状态变为 `PUBLISHING`，退出循环，摄取状态为 `COMPLETED`。
+
+
+
+
+
+
+
+
+
+`Appenderator`，管理一些内存和磁盘数据，可提供查询服务，将数据推到深度存储，但不决定数据进入哪些段，不更新元数据。
+
+`persistExecutor`，持久化数据到磁盘，`maxPendingPersists` 控制线程数。`pushExecutor`，推送数据到深度存储。
 
 
 

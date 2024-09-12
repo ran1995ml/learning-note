@@ -1,7 +1,11 @@
-package com.ran.pattern.decorate;/** 
+package com.ran.pattern.decorate;
+
+/**
  * CondimentDecorator
- * 
+ *
  * @author rwei
  * @since 2024/8/5 11:24
- */public class CondimentDecorator {
+ */
+public abstract class CondimentDecorator extends Beverage {
+    public abstract String getDescription();
 }
