@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.command;
 
 /**
@@ -22,4 +23,12 @@ public class DoorOnCommand implements Command {
     public void undo() {
         door.off();
     }
+=======
+package com.ran.pattern.command;/** 
+ * DoorOnCommand
+ * 
+ * @author rwei
+ * @since 2024/8/15 12:48
+ */public class DoorOnCommand {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.combination;
 
 import java.util.Iterator;
@@ -38,4 +39,12 @@ public abstract class MenuComponent {
     public void print() {
         throw new UnsupportedOperationException();
     }
+=======
+package com.ran.pattern.combination;/** 
+ * MenuComponent
+ * 
+ * @author rwei
+ * @since 2024/9/8 16:37
+ */public class MenuComponent {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

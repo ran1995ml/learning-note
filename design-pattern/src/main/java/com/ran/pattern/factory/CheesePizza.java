@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.factory;
 
 import com.ran.pattern.factory.abstractive.IngredientFactory;
@@ -28,4 +29,12 @@ public class CheesePizza extends Pizza {
     public void box() {
 
     }
+=======
+package com.ran.pattern.factory;/** 
+ * CheesePizza
+ * 
+ * @author rwei
+ * @since 2024/8/6 22:36
+ */public class CheesePizza {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

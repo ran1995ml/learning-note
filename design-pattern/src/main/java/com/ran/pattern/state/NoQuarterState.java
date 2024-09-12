@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.state;
 
 /**
@@ -33,4 +34,12 @@ public class NoQuarterState implements State {
     public void dispense() {
         System.out.println("need to pay first");
     }
+=======
+package com.ran.pattern.state;/** 
+ * NoQuarterState
+ * 
+ * @author rwei
+ * @since 2024/9/8 21:57
+ */public class NoQuarterState {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

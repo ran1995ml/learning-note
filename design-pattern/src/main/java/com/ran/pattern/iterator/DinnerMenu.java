@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.iterator;
 
 /**
@@ -33,4 +34,12 @@ public class DinnerMenu implements Menu {
     public Iterator<MenuItem> createIterator() {
         return new DinnerMenuIterator(menuItems);
     }
+=======
+package com.ran.pattern.iterator;/** 
+ * DinnerMenu
+ * 
+ * @author rwei
+ * @since 2024/8/20 13:58
+ */public class DinnerMenu {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

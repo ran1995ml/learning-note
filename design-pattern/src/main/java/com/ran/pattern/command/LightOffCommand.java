@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.command;
 
 /**
@@ -22,4 +23,12 @@ public class LightOffCommand implements Command {
     public void undo() {
         light.on();
     }
+=======
+package com.ran.pattern.command;/** 
+ * LightOffCommand
+ * 
+ * @author rwei
+ * @since 2024/8/15 11:58
+ */public class LightOffCommand {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

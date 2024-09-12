@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.combination;
 
 import java.util.ArrayList;
@@ -59,4 +60,12 @@ public class Menu extends MenuComponent {
             menuItem.print();
         }
     }
+=======
+package com.ran.pattern.combination;/** 
+ * Menu
+ * 
+ * @author rwei
+ * @since 2024/9/8 16:50
+ */public class Menu {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

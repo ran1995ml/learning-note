@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.state;
 
 /**
@@ -32,4 +33,12 @@ public class SoldOutState implements State {
     public void dispense() {
         System.out.println("sold out");
     }
+=======
+package com.ran.pattern.state;/** 
+ * SoldOutState
+ * 
+ * @author rwei
+ * @since 2024/9/8 22:09
+ */public class SoldOutState {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

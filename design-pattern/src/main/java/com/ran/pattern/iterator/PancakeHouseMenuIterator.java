@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.iterator;
 
 import java.util.List;
@@ -28,4 +29,12 @@ public class PancakeHouseMenuIterator implements Iterator<MenuItem> {
         position++;
         return menuItem;
     }
+=======
+package com.ran.pattern.iterator;/** 
+ * PancakeHouseMenuIterator
+ * 
+ * @author rwei
+ * @since 2024/8/20 21:44
+ */public class PancakeHouseMenuIterator {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.combination;
 
 import java.util.Iterator;
@@ -42,4 +43,12 @@ public class CompositeIterator implements Iterator<MenuComponent> {
             return null;
         }
     }
+=======
+package com.ran.pattern.combination;/** 
+ * CompositeIterator
+ * 
+ * @author rwei
+ * @since 2024/9/8 18:25
+ */public class CompositeIterator {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

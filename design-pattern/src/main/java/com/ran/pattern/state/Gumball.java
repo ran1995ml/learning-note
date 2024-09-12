@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.state;
 
 /**
@@ -77,4 +78,12 @@ public class Gumball {
     public void setCount(int count) {
         this.count = count;
     }
+=======
+package com.ran.pattern.state;/** 
+ * Gumball
+ * 
+ * @author rwei
+ * @since 2024/9/8 21:58
+ */public class Gumball {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

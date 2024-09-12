@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.command;
 
 /**
@@ -29,4 +30,12 @@ public class Main {
         remoteControl.pressOff(0);
         remoteControl.undo();
     }
+=======
+package com.ran.pattern.command;/** 
+ * Main
+ * 
+ * @author rwei
+ * @since 2024/8/13 22:48
+ */public class Main {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }

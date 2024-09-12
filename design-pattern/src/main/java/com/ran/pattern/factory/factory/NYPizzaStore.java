@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.ran.pattern.factory.factory;
 
 import com.ran.pattern.factory.NYCheesePizza;
@@ -22,4 +23,12 @@ public class NYPizzaStore extends PizzaStore {
         }
         return pizza;
     }
+=======
+package com.ran.pattern.factory.factory;/** 
+ * NYPizzaStore
+ * 
+ * @author rwei
+ * @since 2024/8/7 10:36
+ */public class NYPizzaStore {
+>>>>>>> d2268072ead9337b9394f0bca4208b39a9603856
 }
