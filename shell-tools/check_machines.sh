@@ -1,33 +1,38 @@
 #!/bin/bash
 my_array=(
-rccp110-8c.iad4.prod.conviva.com
-rccp110-8d.iad4.prod.conviva.com
-rccp110-9a.iad4.prod.conviva.com
-rccp110-9c.iad4.prod.conviva.com
-rccp110-9d.iad4.prod.conviva.com
-rccp112-8a.iad4.prod.conviva.com
-rccp112-8c.iad4.prod.conviva.com
-rccp112-9a.iad4.prod.conviva.com
-rccp112-9b.iad4.prod.conviva.com
-rccp112-9c.iad4.prod.conviva.com
-rccp112-9d.iad4.prod.conviva.com
-rccp113-8a.iad4.prod.conviva.com
-rccp113-8c.iad4.prod.conviva.com
-rccp113-8d.iad4.prod.conviva.com
-rccp114-9a.iad4.prod.conviva.com
+rccp106-2a.sjc2.prod.conviva.com
+rccp205-4a.sjc2.prod.conviva.com
+rccp205-5b.sjc2.prod.conviva.com
+rccp206-4b.sjc2.prod.conviva.com
+rccp204-3a.sjc2.prod.conviva.com
+rccp203-2b.sjc2.prod.conviva.com
+rccp204-3b.sjc2.prod.conviva.com
+rccp203-2a.sjc2.prod.conviva.com
+rccp207-1a.sjc2.prod.conviva.com
+rccp207-2a.sjc2.prod.conviva.com
+rccp207-2b.sjc2.prod.conviva.com
+rccp207-3b.sjc2.prod.conviva.com
+rccp207-3a.sjc2.prod.conviva.com
+rccp205-3b.sjc2.prod.conviva.com
+rccp205-3a.sjc2.prod.conviva.com
+rccp205-2a.sjc2.prod.conviva.com
+rccp205-2b.sjc2.prod.conviva.com
 )
 command="echo '############## df ########################';"
-command+='df -h /conviva;'
-command+="echo '############## memory #################################';"
-command+='free -g;'
-command+="echo '############## cpu ####################################';"
-command+='nproc;'
-command+="echo '############## version ################################';"
-command+='cat /etc/os-release|grep VERSION;'
+command+='df -h;'
+#command+="echo '############## memory #################################';"
+#command+='free -g;'
+#command+="echo '############## cpu ####################################';"
+#command+='nproc;'
+#command+="echo '############## version ################################';"
+#command+='cat /etc/os-release|grep VERSION;'
+#command="mkdir -p /conviva/data/druid/ssd1/0;"
+#command+="chown -R 1006:1006 /conviva/data/druid/ssd1/0;"
+#command+="ls -l /conviva/data/druid/ssd1/"
 
 for i in "${my_array[@]}"
 do
-        echo -e "\nstart check server:$i"
+    echo -e "\nstart check server:$i"
     ssh -i /Users/rwei/Documents/conviva_cm_private_key.pem root@$i $command
     echo -e "end check server:$i \n"
 done
