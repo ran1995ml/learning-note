@@ -23,20 +23,19 @@ public class GenerateParenthesis_22 {
         return ans;
     }
 
-    private void dfs(List<String> ans, StringBuffer sb, int left, int right, int n) {
-        if (left == n && right == n) {
+    private void dfs(List<String> ans, StringBuffer sb, int n1, int n2, int n) {
+        if (n2 > n1) return;
+        if (n1 > n) return;
+        if (n1 == n && n2 == n){
             ans.add(String.valueOf(sb));
             return;
         }
-        if (left > n | right > n) return;
-        if (left < right) return;
 
         sb.append('(');
-        dfs(ans, sb, left + 1, right, n);
+        dfs(ans, sb, n1 + 1, n2, n);
         sb.deleteCharAt(sb.length() - 1);
-
         sb.append(')');
-        dfs(ans, sb, left, right + 1, n);
+        dfs(ans, sb, n1, n2 + 1, n);
         sb.deleteCharAt(sb.length() - 1);
     }
 }

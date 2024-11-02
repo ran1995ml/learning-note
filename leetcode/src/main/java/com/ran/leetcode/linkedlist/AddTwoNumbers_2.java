@@ -23,25 +23,25 @@ public class AddTwoNumbers_2 {
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode p1 = l1;
+        ListNode p2 = l2;
         ListNode node = new ListNode(-1);
-        ListNode head = node;
-        ListNode head1 = l1;
-        ListNode head2 = l2;
+        ListNode p = node;
         int col = 0;
 
-        while (head1 != null || head2 != null) {
-            int val1 = head1 == null ? 0 : head1.val;
-            int val2 = head2 == null ? 0 : head2.val;
-            int sum = (val1 + val2 + col) % 10;
-            col = (val1 + val2 + col) / 10;
-            head.next = new ListNode(sum);
-            head = head.next;
-            head1 = head1 == null ? null : head1.next;
-            head2 = head2 == null ? null : head2.next;
+        while (p1 != null || p2 != null) {
+            int value1 = p1 == null ? 0 : p1.val;
+            int value2 = p2 == null ? 0 : p2.val;
+            int value = (value1 + value2 + col) % 10;
+            col = (value1 + value2 + col) / 10;
+            p.next = new ListNode(value);
+            p = p.next;
+            p1 = p1 == null ? null : p1.next;
+            p2 = p2 == null ? null : p2.next;
         }
 
         if (col > 0) {
-            head.next = new ListNode(col);
+            p.next = new ListNode(col);
         }
         return node.next;
     }

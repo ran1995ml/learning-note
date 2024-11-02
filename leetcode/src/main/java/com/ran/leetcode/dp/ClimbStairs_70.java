@@ -9,7 +9,7 @@ package com.ran.leetcode.dp;
 public class ClimbStairs_70 {
     public static void main(String[] args) {
         ClimbStairs_70 obj = new ClimbStairs_70();
-        int n = 4;
+        int n = 8;
         System.out.println(obj.climbStairs(n));
     }
 
