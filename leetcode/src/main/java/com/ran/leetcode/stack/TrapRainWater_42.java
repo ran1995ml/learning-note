@@ -24,7 +24,7 @@ public class TrapRainWater_42 {
                 if (stack.isEmpty()) break;
                 int h = Math.min(height[i], height[stack.peek()]) - height[cur];
                 int w = i - stack.peek() - 1;
-                sum += w * h;
+                sum += h * w;
             }
             stack.add(i);
         }

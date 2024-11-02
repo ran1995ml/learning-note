@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * NextPermutation_31
+ * 从低位查找递增序列
  *
  * @author rwei
  * @since 2024/5/29 09:43
@@ -11,26 +12,35 @@ import java.util.Arrays;
 public class NextPermutation_31 {
     public static void main(String[] args) {
         NextPermutation_31 obj = new NextPermutation_31();
-        int[] nums = {1, 1, 5};
+        int[] nums = {5, 4, 2, 3, 3, 1}; // [5, 4, 3, 1, 2, 3]
+//        int[] nums = {3, 2, 1};
         obj.nextPermutation(nums);
         System.out.println(Arrays.toString(nums));
     }
 
     public void nextPermutation(int[] nums) {
-        int i = nums.length - 1;
-        while (i - 1 >= 0 && nums[i] <= nums[i - 1]) {
-            i--;
+        int p1 = nums.length - 1;
+        while (p1 - 1 >= 0 && nums[p1] <= nums[p1 - 1]) {
+            p1--;
         }
-        if (i == 0) {
-            reverse(nums, 0, nums.length - 1);
-        } else {
-            i = i - 1;
-            int j = nums.length - 1;
-            while (j > i && nums[j] <= nums[i]) {
-                j--;
-            }
+        if (p1 == 0) {
+            rotate(nums, 0, nums.length - 1);
+            return;
+        }
+        p1--;
+        int p2 = nums.length - 1;
+        while (nums[p2] <= nums[p1]) {
+            p2--;
+        }
+        swap(nums, p1, p2);
+        rotate(nums, p1 + 1, nums.length - 1);
+    }
+
+    private void rotate(int[] nums, int i, int j) {
+        while (i < j) {
             swap(nums, i, j);
-            reverse(nums, i + 1, nums.length - 1);
+            i++;
+            j--;
         }
     }
 
@@ -38,13 +48,5 @@ public class NextPermutation_31 {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
-    }
-
-    private void reverse(int[] nums, int i, int j) {
-        while (i < j) {
-            swap(nums, i, j);
-            i++;
-            j--;
-        }
     }
 }

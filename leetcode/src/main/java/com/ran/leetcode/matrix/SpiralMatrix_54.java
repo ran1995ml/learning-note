@@ -19,13 +19,10 @@ public class SpiralMatrix_54 {
 
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
-        int row = matrix.length;
-        int col = matrix[0].length;
         int i1 = 0;
         int j1 = 0;
-        int i2 = row - 1;
-        int j2 = col - 1;
-
+        int i2 = matrix.length - 1;
+        int j2 = matrix[0].length - 1;
         while (i1 <= i2 && j1 <= j2) {
             traverse(ans, matrix, i1++, j1++, i2--, j2--);
         }

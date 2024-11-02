@@ -13,29 +13,27 @@ public class LetterCombinations_17 {
     private final String[] digit2letter = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
     public static void main(String[] args) {
-        String digits = "2";
+        String digits = "23";
         LetterCombinations_17 obj = new LetterCombinations_17();
         System.out.println(obj.letterCombinations(digits));
     }
 
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<>();
-        if (digits == null || digits.length() == 0) return res;
-        dfs(res, digits, new StringBuffer(), 0);
-        return res;
+        List<String> ans = new ArrayList<>();
+        if (digits.length() == 0) return ans;
+        dfs(ans, new StringBuffer(), digits, 0);
+        return ans;
     }
 
-    private void dfs(List<String> res, String digits, StringBuffer sb, int index) {
+    private void dfs(List<String> ans, StringBuffer sb, String digits, int index) {
         if (sb.length() == digits.length()) {
-            res.add(new String(sb));
+            ans.add(sb.toString());
             return;
         }
-
-        int number = digits.charAt(index) - '0';
-        char[] letters = digit2letter[number].toCharArray();
+        char[] letters = digit2letter[digits.charAt(index) - '0'].toCharArray();
         for (char letter : letters) {
             sb.append(letter);
-            dfs(res, digits, sb, index + 1);
+            dfs(ans, sb, digits, index + 1);
             sb.deleteCharAt(sb.length() - 1);
         }
     }

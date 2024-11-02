@@ -3,7 +3,6 @@ package com.ran.leetcode.dp;
 /**
  * LongestPalindrome_5
  * s[i] == s[j]: dp[i][j] = dp[i+1][j-1]
- * s[i] != s[j]: dp[i][j] =
  *
  * @author rwei
  * @since 2024/5/13 17:51
@@ -16,19 +15,17 @@ public class LongestPalindrome_5 {
     }
 
     public String longestPalindrome(String s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.length() <= 1) {
             return s;
         }
 
-        int max = 0;
         String str = "";
-        char[] ch = s.toCharArray();
-        boolean[][] dp = new boolean[ch.length][ch.length];
+        int max = 0;
+        boolean[][] dp = new boolean[s.length()][s.length()];
 
-
-        for (int i = ch.length - 1; i >= 0; i--) {
-            for (int j = i; j < ch.length; j++) {
-                if (ch[i] == ch[j] && (j - i <= 2 || dp[i + 1][j - 1])) {
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i + 1 <= 2 || dp[i + 1][j - 1])) {
                     dp[i][j] = true;
                     if (j - i + 1 > max) {
                         max = j - i + 1;

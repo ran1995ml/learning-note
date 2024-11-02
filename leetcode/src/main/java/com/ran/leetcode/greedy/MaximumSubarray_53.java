@@ -2,7 +2,8 @@ package com.ran.leetcode.greedy;
 
 /**
  * MaximumSubarray_53
- *
+ * sum[i] = sum[i-1] + num[i] sum[i-1] > 0
+ * sum[i] = num[i] sum[i-1] < 0
  * @author rwei
  * @since 2024/6/3 15:06
  */
@@ -16,13 +17,8 @@ public class MaximumSubarray_53 {
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE;
         int sum = 0;
-
         for (int num : nums) {
-            if (sum < 0) {
-                sum = num;
-            } else {
-                sum += num;
-            }
+            sum = sum < 0 ? num : sum + num;
             max = Math.max(max, sum);
         }
         return max;

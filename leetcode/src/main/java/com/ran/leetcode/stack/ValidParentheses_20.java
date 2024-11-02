@@ -16,23 +16,27 @@ public class ValidParentheses_20 {
     }
 
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
         char[] ch = s.toCharArray();
+        Stack<Character> stack = new Stack<>();
         for (char c : ch) {
             if (stack.isEmpty()) {
-                stack.push(c);
+                stack.add(c);
             } else {
-                if (c == ')' && stack.peek() == '(') {
-                    stack.pop();
-                } else if (c == ']' && stack.peek() == '[') {
-                    stack.pop();
-                } else if (c == '}' && stack.peek() == '{') {
+                if (match(c, stack.peek())) {
                     stack.pop();
                 } else {
-                    stack.push(c);
+                    stack.add(c);
                 }
             }
         }
         return stack.isEmpty();
+    }
+
+    private boolean match(char c1, char c2) {
+        if (c1 == ')' && c2 == '(') {
+            return true;
+        } else if (c1 == ']' && c2 == '[') {
+            return true;
+        } else return c1 == '}' && c2 == '{';
     }
 }

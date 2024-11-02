@@ -18,12 +18,11 @@ public class LengthOfLongestSubstring_3 {
     }
 
     public int lengthOfLongestSubstring(String s) {
+        int max = 0;
         Map<Character, Integer> map = new HashMap<>();
         char[] ch = s.toCharArray();
         int left = 0;
         int right = 0;
-        int max = 0;
-
         while (right < ch.length) {
             char c1 = ch[right];
             map.put(c1, map.getOrDefault(c1, 0) + 1);

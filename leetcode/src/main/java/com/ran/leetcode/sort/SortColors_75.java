@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class SortColors_75 {
     public static void main(String[] args) {
         SortColors_75 obj = new SortColors_75();
-        int[] nums = {2, 0, 1};
+        int[] nums = {2, 0, 2, 1, 1, 0};
         obj.sortColors(nums);
         System.out.println(Arrays.toString(nums));
     }
@@ -21,13 +21,13 @@ public class SortColors_75 {
         int p2 = nums.length - 1;
         int i = 0;
         while (i <= p2) {
-            if (nums[i] == 0) {
+            if (nums[i] == 2) {
+                swap(nums, i, p2);
+                p2--;
+            } else if (nums[i] == 0) {
                 swap(nums, i, p0);
                 p0++;
                 i++;
-            } else if (nums[i] == 2) {
-                swap(nums, i, p2);
-                p2--;
             } else {
                 i++;
             }

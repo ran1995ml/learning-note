@@ -17,11 +17,10 @@ public class GroupAnagrams_49 {
 
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
-
         for (String str : strs) {
-            char[] ch = str.toCharArray();
-            Arrays.sort(ch);
-            String key = new String(ch);
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
             if (!map.containsKey(key)) {
                 map.put(key, new ArrayList<>());
             }
