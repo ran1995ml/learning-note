@@ -23,9 +23,10 @@ public class SortList_148 {
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) return head;
         ListNode middleNode = getMiddleNode(head);
+        ListNode p1 = head;
         ListNode p2 = middleNode.next;
         middleNode.next = null;
-        return sort(sortList(head), sortList(p2));
+        return sort(sortList(p1), sortList(p2));
     }
 
     private ListNode sort(ListNode p1, ListNode p2) {
@@ -51,6 +52,7 @@ public class SortList_148 {
         node.next = head;
         ListNode p1 = node;
         ListNode p2 = node;
+
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;

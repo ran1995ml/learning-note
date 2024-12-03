@@ -20,35 +20,36 @@ public class SerializeBinaryTree_297 {
 
     public static String serialize(TreeNode root) {
         StringBuffer sb = new StringBuffer();
-        serDfs(sb, root);
+        serializeDfs(root, sb);
         return sb.toString();
     }
 
-    private static void serDfs(StringBuffer sb, TreeNode root) {
-        if (root == null) {
-            sb.append("null").append(",");
-            return;
+    private static void serializeDfs(TreeNode root, StringBuffer sb) {
+        if (root == null){
+            sb.append("null");
+            sb.append(",");
+        } else {
+            sb.append(root.val);
+            sb.append(",");
+            serializeDfs(root.left, sb);
+            serializeDfs(root.right, sb);
         }
-        sb.append(root.val).append(",");
-        serDfs(sb, root.left);
-        serDfs(sb, root.right);
     }
 
     public static TreeNode deserialize(String data) {
         String[] nodes = data.split(",");
         AtomicInteger index = new AtomicInteger(0);
-        return deserDfs(nodes, index);
+        return deserializeDfs(nodes, index);
     }
 
-    private static TreeNode deserDfs(String[] nodes, AtomicInteger index) {
-        int value = index.getAndIncrement();
-        if (nodes[value].equals("null")) {
+    private static TreeNode deserializeDfs(String[] nodes, AtomicInteger index) {
+        String value = nodes[index.getAndIncrement()];
+        if (value.equals("null")) {
             return null;
-        } else {
-            TreeNode root = new TreeNode(Integer.parseInt(nodes[value]));
-            root.left = deserDfs(nodes, index);
-            root.right = deserDfs(nodes, index);
-            return root;
         }
+        TreeNode root = new TreeNode(Integer.parseInt(value));
+        root.left = deserializeDfs(nodes, index);
+        root.right = deserializeDfs(nodes, index);
+        return root;
     }
 }

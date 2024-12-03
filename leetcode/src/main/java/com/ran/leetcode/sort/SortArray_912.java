@@ -15,20 +15,21 @@ public class SortArray_912 {
         int[] nums = {5, 1, 1, 2, 0, 0};
 //        obj.bubbleSort(nums);
 //        obj.quickSort(nums, 0, nums.length - 1);
-        System.out.println(Arrays.toString(obj.mergeSort(nums)));
-//        System.out.println(Arrays.toString(nums));
+        obj.heapSort(nums);
+//        System.out.println(Arrays.toString(obj.mergeSort(nums)));
+        System.out.println(Arrays.toString(nums));
     }
 
     public void bubbleSort(int[] nums) {
         for (int i = 0; i < nums.length - 1; i++) {
-            boolean sorted = false;
+            boolean sorted = true;
             for (int j = 0; j < nums.length - 1 - i; j++) {
                 if (nums[j] > nums[j + 1]) {
+                    sorted = false;
                     swap(nums, j, j + 1);
-                    sorted = true;
                 }
             }
-            if (!sorted) break;
+            if (sorted) break;
         }
     }
 
@@ -37,8 +38,9 @@ public class SortArray_912 {
         int left = low;
         int right = high;
         int target = new Random().nextInt(right - left + 1) + left;
-        swap(nums, target, left);
+        swap(nums, left, target);
         int temp = nums[left];
+
         while (left < right) {
             while (left < right && nums[right] >= temp) right--;
             nums[left] = nums[right];
@@ -55,6 +57,29 @@ public class SortArray_912 {
         int[] left = Arrays.copyOfRange(nums, 0, nums.length / 2);
         int[] right = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
         return merge(mergeSort(left), mergeSort(right));
+    }
+
+    public void heapSort(int[] nums) {
+        for (int i = nums.length / 2; i >= 0; i--) {
+            adjustHeap(nums, i, nums.length);
+        }
+
+        for (int i = nums.length - 1; i > 0; i--) {
+            swap(nums, 0, i);
+            adjustHeap(nums, 0, i);
+        }
+    }
+
+    private void adjustHeap(int[] nums, int i, int length) {
+        int temp = nums[i];
+        for (int k = 2 * i + 1; k < length; k = 2 * k + 1) {
+            if (k + 1 < length && nums[k + 1] > nums[k]) k++;
+            if (nums[k] > temp) {
+                nums[i] = nums[k];
+                i = k;
+            }
+        }
+        nums[i] = temp;
     }
 
     private int[] merge(int[] left, int[] right) {

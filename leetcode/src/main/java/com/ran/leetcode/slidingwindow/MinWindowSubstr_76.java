@@ -19,38 +19,41 @@ public class MinWindowSubstr_76 {
 
     public String minWindow(String s, String t) {
         String str = "";
+        int min = Integer.MAX_VALUE;
         char[] sh = s.toCharArray();
         char[] th = t.toCharArray();
-        Map<Character, Integer> windows = new HashMap<>();
-        Map<Character, Integer> needs = new HashMap<>();
-
-        for (char c : th) {
-            needs.put(c, needs.getOrDefault(c, 0) + 1);
-        }
-
+        int[] needed = new int[128];
+        int[] window = new int[128];
         int left = 0;
         int right = 0;
-        int min = Integer.MAX_VALUE;
         int count = 0;
+        int target = 0;
+
+        for (char c : th) {
+            needed[c - 'A']++;
+        }
+
+        for (int i : needed) {
+            if (i > 0) target++;
+        }
 
         while (right < sh.length) {
             char c1 = sh[right];
-
-            if (needs.containsKey(c1)) {
-                windows.put(c1, windows.getOrDefault(c1, 0) + 1);
-                if (windows.get(c1).equals(needs.get(c1))) count++;
+            if (needed[c1 - 'A'] > 0) {
+                window[c1 - 'A']++;
+                if (window[c1 - 'A'] == needed[c1 - 'A']) {
+                    count++;
+                }
             }
-
-            while (count == needs.size()) {
+            while (count == target) {
+                char c2 = sh[left];
                 if (right - left + 1 < min) {
                     min = right - left + 1;
                     str = s.substring(left, right + 1);
                 }
-
-                char c2 = sh[left];
-                if (needs.containsKey(c2)) {
-                    windows.put(c2, windows.get(c2) - 1);
-                    if (windows.get(c2) < needs.get(c2)) {
+                if (needed[c2 - 'A'] > 0) {
+                    window[c2 - 'A']--;
+                    if (window[c2 - 'A'] < needed[c2 - 'A']) {
                         count--;
                     }
                 }

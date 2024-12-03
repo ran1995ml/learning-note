@@ -25,40 +25,37 @@ public class MinStack_155 {
     private final Stack<Integer> stackMin;
 
     public MinStack_155() {
-        stack = new Stack<>();
-        stackMin = new Stack<>();
+        this.stack = new Stack<>();
+        this.stackMin = new Stack<>();
     }
 
     public void push(int val) {
-        if (stackMin.isEmpty()) {
-            stackMin.push(val);
-        } else if (val <= stackMin.peek()) {
-            stackMin.push(val);
+        this.stack.push(val);
+        if (this.stackMin.isEmpty()) {
+            this.stackMin.push(val);
+        } else {
+            if (val <= this.stackMin.peek()) {
+                this.stackMin.push(val);
+            }
         }
-        stack.push(val);
     }
 
     public void pop() {
-        if (stack.isEmpty()) {
+        if (this.stack.isEmpty()) {
             throw new RuntimeException("empty stack");
+        } else {
+            int val = this.stack.pop();
+            if (val == this.stackMin.peek()) {
+                this.stackMin.pop();
+            }
         }
-        int val = stack.pop();
-        if (val == stackMin.peek()) stackMin.pop();
     }
 
     public int top() {
-        if (stack.isEmpty()) {
-            throw new RuntimeException("empty stack");
-        } else {
-            return stack.peek();
-        }
+        return this.stack.peek();
     }
 
     public int getMin() {
-        if (stackMin.isEmpty()) {
-            throw new RuntimeException("empty stack");
-        } else {
-            return stackMin.peek();
-        }
+        return this.stackMin.peek();
     }
 }

@@ -19,18 +19,16 @@ public class BinaryTreeMaxPathSum_124 {
     }
 
     public int maxPathSum(TreeNode root) {
-        if (root == null) return max;
+        if (root == null) return 0;
         dfs(root);
-        maxPathSum(root.left);
-        maxPathSum(root.right);
         return max;
     }
 
     private int dfs(TreeNode root) {
         if (root == null) return 0;
-        int left = Math.max(0, dfs(root.left));
-        int right = Math.max(0, dfs(root.right));
-        max = Math.max(max, root.val + left + right);
-        return Math.max(root.val + left, root.val + right);
+        int left = Math.max(dfs(root.left), 0);
+        int right = Math.max(dfs(root.right), 0);
+        max = Math.max(left + right + root.val, max);
+        return Math.max(left, right) + root.val;
     }
 }

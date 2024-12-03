@@ -1,5 +1,7 @@
 package com.ran.leetcode.sort;
 
+import java.util.Random;
+
 /**
  * MajorityElement_169
  *
@@ -17,7 +19,7 @@ public class MajorityElement_169 {
         int left = 0;
         int right = nums.length - 1;
         while (left < right) {
-            int index = quickSort(nums, left, right);
+            int index = quickSort(left, right, nums);
             if (index == nums.length / 2) {
                 return nums[index];
             } else if (index < nums.length / 2) {
@@ -29,7 +31,9 @@ public class MajorityElement_169 {
         return nums[left];
     }
 
-    private int quickSort(int[] nums, int left, int right) {
+    private int quickSort(int left, int right, int[] nums) {
+        int target = new Random().nextInt(right - left + 1) + left;
+        swap(nums, left, target);
         int temp = nums[left];
         while (left < right) {
             while (left < right && nums[right] >= temp) right--;
@@ -39,5 +43,11 @@ public class MajorityElement_169 {
         }
         nums[left] = temp;
         return left;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

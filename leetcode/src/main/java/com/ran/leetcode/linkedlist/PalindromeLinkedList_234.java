@@ -17,13 +17,15 @@ public class PalindromeLinkedList_234 {
     }
 
     public boolean isPalindrome(ListNode head) {
+        ListNode middleNode = getMiddleNode(head);
         ListNode p1 = head;
-        ListNode middle = getMiddleNode(head);
-        ListNode p2 = reverseLinkedList(middle.next);
-        while (p2 != null) {
-            if (p1.val != p2.val) return false;
+        ListNode p2 = middleNode.next;
+        middleNode.next = null;
+        ListNode p3 = reverseList(p2);
+        while (p1 != null && p3 != null) {
+            if (p1.val != p3.val) return false;
             p1 = p1.next;
-            p2 = p2.next;
+            p3 = p3.next;
         }
         return true;
     }
@@ -34,16 +36,18 @@ public class PalindromeLinkedList_234 {
         node.next = head;
         ListNode p1 = node;
         ListNode p2 = node;
-        while (p2 != null && p2.next != null) {
-            p1 = p1.next;
-            p2 = p2.next.next;
+
+        while (p1 != null && p1.next != null) {
+            p1 = p1.next.next;
+            p2 = p2.next;
         }
-        return p1;
+        return p2;
     }
 
-    private ListNode reverseLinkedList(ListNode head) {
-        ListNode pre = null;
+    private ListNode reverseList(ListNode head) {
         ListNode cur = head;
+        ListNode pre = null;
+
         while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;

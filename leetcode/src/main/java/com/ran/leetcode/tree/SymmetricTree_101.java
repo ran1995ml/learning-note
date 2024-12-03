@@ -17,7 +17,7 @@ public class SymmetricTree_101 {
     }
 
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
+        if (root == null) return false;
         return dfs(root.left, root.right);
     }
 

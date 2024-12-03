@@ -19,7 +19,7 @@ public class MaxProfitIV_188 {
         for (int i = 0; i < prices.length; i++) {
             for (int j = 1; j <= k; j++) {
                 if (i == 0) {
-                    dp[j][1] = -prices[i];
+                    dp[j][1] = - prices[i];
                 } else {
                     dp[j][0] = Math.max(dp[j][0], dp[j][1] + prices[i]);
                     dp[j][1] = Math.max(dp[j][1], dp[j - 1][0] - prices[i]);

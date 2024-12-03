@@ -21,6 +21,7 @@ public class MiddleNode_876 {
         if (head == null || head.next == null) return head;
         ListNode p1 = head;
         ListNode p2 = head;
+
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;

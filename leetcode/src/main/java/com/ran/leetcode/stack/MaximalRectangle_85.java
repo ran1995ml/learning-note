@@ -11,24 +11,18 @@ import java.util.Stack;
 public class MaximalRectangle_85 {
     public static void main(String[] args) {
         MaximalRectangle_85 obj = new MaximalRectangle_85();
-//        char[][] matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
-        char[][] matrix = {{'1', '0'}, {'1', '0'}};
+        char[][] matrix = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
+//        char[][] matrix = {{'1', '0'}, {'1', '0'}};
         System.out.println(obj.maximalRectangle(matrix));
     }
 
     public int maximalRectangle(char[][] matrix) {
         int max = 0;
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[] heights = new int[col];
+        int[] heights = new int[matrix[0].length];
 
-        for (int i = row - 1; i >= 0; i--) {
-            for (int j = 0; j < col; j++) {
-                if (matrix[i][j] == '0') {
-                    heights[j] = 0;
-                } else {
-                    heights[j] += 1;
-                }
+        for (char[] chars : matrix) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                heights[j] = chars[j] == '0' ? 0 : heights[j] + 1;
             }
             max = Math.max(max, maxArea(heights));
         }
@@ -37,14 +31,14 @@ public class MaximalRectangle_85 {
 
     private int maxArea(int[] heights) {
         int max = 0;
-        int[] newHeights = new int[heights.length + 2];
-        System.arraycopy(heights, 0, newHeights, 1, heights.length);
+        int[] nums = new int[heights.length + 2];
+        System.arraycopy(heights, 0, nums, 1, heights.length);
         Stack<Integer> stack = new Stack<>();
 
-        for (int i = 0; i < newHeights.length; i++) {
-            while (!stack.isEmpty() && newHeights[i] < newHeights[stack.peek()]) {
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[i] < nums[stack.peek()]) {
                 int cur = stack.pop();
-                int h = newHeights[cur];
+                int h = nums[cur];
                 int w = i - stack.peek() - 1;
                 max = Math.max(max, w * h);
             }

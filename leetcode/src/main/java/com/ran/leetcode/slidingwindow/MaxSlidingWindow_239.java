@@ -1,5 +1,7 @@
 package com.ran.leetcode.slidingwindow;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,18 +21,18 @@ public class MaxSlidingWindow_239 {
     }
 
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0 || k > nums.length) return new int[] {};
         int[] ans = new int[nums.length - k + 1];
         LinkedList<Integer> queue = new LinkedList<>();
+
         for (int i = 0; i < nums.length; i++) {
-            if (!queue.isEmpty() && i - queue.peekFirst() >= k) {
-                queue.pollFirst();
-            }
-            while (!queue.isEmpty() && nums[queue.peekLast()] <= nums[i]) {
+            while (!queue.isEmpty() && nums[i] >= nums[queue.peekLast()]) {
                 queue.pollLast();
             }
             queue.addLast(i);
-            if (i - k + 1 >= 0) {
+            if (i - k == queue.peekFirst()) {
+                queue.pollFirst();
+            }
+            if (i >= k - 1) {
                 ans[i - k + 1] = nums[queue.peekFirst()];
             }
         }

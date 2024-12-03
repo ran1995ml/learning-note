@@ -11,8 +11,9 @@ import java.util.Arrays;
 public class DiagonalOrder_498 {
     public static void main(String[] args) {
         DiagonalOrder_498 obj = new DiagonalOrder_498();
-        int[][] mat = {{1, 2},
-                       {3, 4}};
+        int[][] mat = {{1, 2, 3},
+                       {4, 5, 6},
+                       {7, 8, 9}};
         System.out.println(Arrays.toString(obj.findDiagonalOrder(mat)));
     }
 
@@ -20,9 +21,10 @@ public class DiagonalOrder_498 {
         int row = mat.length;
         int col = mat[0].length;
         int[] ans = new int[row * col];
+        int index = 0;
         int i = 0;
         int j = 0;
-        int index = 0;
+
         while (index < ans.length) {
             ans[index++] = mat[i][j];
             if ((i + j) % 2 == 0) {

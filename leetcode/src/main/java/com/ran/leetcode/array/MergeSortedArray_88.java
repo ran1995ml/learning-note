@@ -25,8 +25,8 @@ public class MergeSortedArray_88 {
         int p2 = n - 1;
         for (int i = m + n - 1; i >= 0; i--) {
             if (p1 >= 0 && p2 >= 0) {
-                nums1[i] = nums1[p1] > nums2[p2] ? nums1[p1--] : nums2[p2--];
-            } else if (p1 >= 0 || p2 >= 0) {
+                nums1[i] = nums1[p1] >= nums2[p2] ? nums1[p1--] : nums2[p2--];
+            } else {
                 nums1[i] = p1 >= 0 ? nums1[p1--] : nums2[p2--];
             }
         }
