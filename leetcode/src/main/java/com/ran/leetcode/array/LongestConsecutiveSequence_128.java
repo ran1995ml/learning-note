@@ -21,19 +21,21 @@ public class LongestConsecutiveSequence_128 {
         for (int num : nums) {
             set.add(num);
         }
+
         int max = 0;
         for (int num : set) {
-            int len = 1;
-            if (!set.contains(num - 1)) {
-                int cur = num + 1;
-                while (set.contains(cur)) {
-                    cur++;
+            int cur = num;
+            if (set.contains(cur - 1)) {
+                continue;
+            } else {
+                int len = 1;
+                while (set.contains(cur + 1)) {
                     len++;
+                    cur++;
                 }
+                max = Math.max(len, max);
             }
-            max = Math.max(max, len);
         }
-
         return max;
     }
 }

@@ -21,6 +21,7 @@ public class FindDuplicate_287 {
             p1 = nums[p1];
             p2 = nums[p2];
         } while (p1 != p2);
+
         p1 = 0;
         while (p1 != p2) {
             p1 = nums[p1];

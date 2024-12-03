@@ -26,7 +26,7 @@ public class ConvertBST_538 {
     private void dfs(TreeNode root) {
         if (root == null) return;
         dfs(root.right);
-        root.val = root.val + sum;
+        root.val += sum;
         sum = root.val;
         dfs(root.left);
     }

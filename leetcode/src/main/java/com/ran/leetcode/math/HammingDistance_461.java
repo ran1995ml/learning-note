@@ -15,11 +15,11 @@ public class HammingDistance_461 {
     }
 
     public int hammingDistance(int x, int y) {
-        int ans = x ^ y;
+        int value = x ^ y;
         int distance = 0;
-        while (ans > 0) {
-            distance = distance + ans % 2;
-            ans = ans / 2;
+        while (value > 0) {
+            if (value % 2 > 0) distance++;
+            value = value / 2;
         }
         return distance;
     }

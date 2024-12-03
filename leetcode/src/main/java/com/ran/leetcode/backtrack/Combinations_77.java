@@ -12,26 +12,25 @@ import java.util.List;
 public class Combinations_77 {
     public static void main(String[] args) {
         Combinations_77 obj = new Combinations_77();
-        int n = 1;
-        int k = 1;
+        int n = 4;
+        int k = 2;
         System.out.println(obj.combine(n, k));
     }
 
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> ans = new ArrayList<>();
-        dfs(1, n, k, new ArrayList<>(), ans);
+        dfs(ans, new ArrayList<>(), n, k, 1);
         return ans;
     }
 
-    private void dfs(int index, int n, int k, List<Integer> list, List<List<Integer>> ans) {
+    private void dfs(List<List<Integer>> ans, List<Integer> list, int n, int k, int index) {
         if (list.size() == k) {
             ans.add(new ArrayList<>(list));
             return;
         }
-
         for (int i = index; i <= n; i++) {
             list.add(i);
-            dfs(i + 1, n, k, list, ans);
+            dfs(ans, list, n, k, i + 1);
             list.remove(list.size() - 1);
         }
     }

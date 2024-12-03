@@ -1,6 +1,7 @@
 package com.ran.leetcode.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,10 +23,9 @@ public class FindDisappearedNumbers_448 {
             int index = Math.abs(nums[i]) - 1;
             nums[index] = - Math.abs(nums[index]);
         }
+
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                ans.add(i + 1);
-            }
+            if (nums[i] > 0) ans.add(i + 1);
         }
         return ans;
     }

@@ -22,7 +22,39 @@ public final class SegmentId implements Comparable<SegmentId>
 }
 ```
 
-该类必须优化常驻内存，因为段数据会在 `broker` 和 `coordinator` 消耗大量的堆内存。`Interners` 确保相同的内容使用同一个对象，会维护一个应用级别的常量池，且通过弱引用存储在一个集合中，没有其他引用时，会被垃圾回收。
+该类必须优化常驻内存，因为段数据会在 `broker` 和 `coordinator` 消耗大量的堆内存。`Interners` 确保相同的内容使用同一个对象，会维护一个应用级别的常量池，且通过弱引用存储在一个集合中，没有其他强引用时，会被垃圾回收。
+
+列式存储，分为数值列、字符串列和嵌套列。字符串列有 `ByteBuffer` 字典。字符串类型有字典，将字符值映射成整数节省存储。从基础类型上划分有三种列：时间列、指标列、维度列。指标列和时间列通常是整型和浮点型，一般用 `LZ4` 压缩，追求速度但压缩比低无损压缩，利用一个滑动窗口查找重复模式，找到重复模式后存储长度和偏移量。
+
+26.0之后新增了 `front` 压缩用于压缩字符串列。该算法实现简单，需要对字符串排序，对有重复前缀的字符串压缩效果很好。缺点是更新修改麻烦，很适合 `druid`。
+
+维度列是字符串类型，用于过滤和聚合，包含字典、列表、`bitmap`。字典对字符串编码，列表存放该列编码后的结果。`bitmap` 用于聚合时快速过滤符合条件的记录，需要对字典的每个值对每个列创建。字典和列表的大小会随数据条数线性增长，但 `bitmap` 会随二者乘积增长。解决 `bitmap` 膨胀过快，且对高基维会很稀疏。`RoaringBitMap`，将整数域分成固定大小块，每个块大小65536，高16位区分块。每个块数据，根据稀疏程度和分布选择合适的存储方式，块中数据稀疏且较少，直接用有序数组存。块中数据稠密，存储成65536位的位图。当数据连续分布时，用区间表示范围。
+
+字符串列用0存储 `null`，放在字段的第一个位置，可用 `bitmap` 过滤。字符串类型空串和 `null` 同等对待。数值型列不能存 `null` 用0代替。
+
+一个 `DataSource` 的段可能有不同的 `schema`，查询涉及不同 `schema` 的段不会影响，没有的字符串值查询显示为 `null`，这个 `null` 只是查询时弥补空白，实际不占存储。
+
+```java
+@JsonCreator
+public ColumnDescriptor(
+    @JsonProperty("valueType") ValueType valueType,
+    @JsonProperty("hasMultipleValues") boolean hasMultipleValues,
+    @JsonProperty("parts") List<ColumnPartSerde> parts
+)
+{
+  this.valueType = valueType;
+  this.hasMultipleValues = hasMultipleValues;
+  this.parts = parts;
+}
+```
+
+每个列存储分为两部分：列描述信息、嵌套列、是否有多值，多值类似于数组的结构。列的二进制数据。
+
+段按时间间隔划分，若一个间隔的数据量较大，需要分片。分片规则取决于 `shardSpec`，需要整个间隔的所有分片都可查询时，才能返回查询结果。线性分片方式是个例外，可以立即返回结果，用于流式摄取。
+
+段文件组成：`version.bin`，段版本标识。`XXX.smoosh`，二进制数据，每个文件存一列数据，大小控制在2GB便于加载到 `PageCache`，每个文件附带 `index.drd` 存储元数据及索引。`meta.smoosh` 包含每个文件的元数据，文件名及偏移量。
+
+段的更新，提供了版本系统。若更新跨越多个段间隔，只在单个间隔内的更新是原子的。
 
 # 版本系统
 

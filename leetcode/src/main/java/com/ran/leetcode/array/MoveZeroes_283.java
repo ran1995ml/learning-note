@@ -19,10 +19,12 @@ public class MoveZeroes_283 {
     public void moveZeroes(int[] nums) {
         int p = 0;
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0) nums[p++] = nums[i];
+            if (nums[i] != 0) {
+                nums[p++] = nums[i];
+            }
         }
-        for (int i = p; i < nums.length; i++) {
-            nums[i] = 0;
+        while (p < nums.length) {
+            nums[p++] = 0;
         }
     }
 }

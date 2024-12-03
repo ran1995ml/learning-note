@@ -18,19 +18,17 @@ public class BuildTreePreorderInorder_105 {
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
+        return build(preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1);
     }
 
-    private TreeNode build(int[] preorder, int s1, int e1, int[] inorder, int s2, int e2) {
+    private TreeNode build(int[] preorder, int[] inorder, int s1, int e1, int s2, int e2) {
         if (s1 > e1 || s2 > e2) return null;
         int value = preorder[s1];
         int index = s2;
-        while (inorder[index] != value) {
-            index++;
-        }
+        while (inorder[index] != value) index++;
         TreeNode root = new TreeNode(value);
-        root.left = build(preorder, s1 + 1, s1 + index - s2, inorder, s2, index - 1);
-        root.right = build(preorder, s1 + index - s2 + 1, e1, inorder, index + 1, e2);
+        root.left = build(preorder, inorder, s1 + 1, s1 + index - s2, s2, index - 1);
+        root.right = build(preorder, inorder, s1 + index - s2 + 1, e1, index + 1, e2);
         return root;
     }
 }
