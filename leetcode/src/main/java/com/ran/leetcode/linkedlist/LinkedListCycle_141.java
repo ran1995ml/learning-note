@@ -19,10 +19,8 @@ public class LinkedListCycle_141 {
     }
 
     public boolean hasCycle(ListNode head) {
-        if (head == null) return false;
         ListNode p1 = head;
         ListNode p2 = head;
-
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;

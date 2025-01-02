@@ -18,8 +18,8 @@ public class MajorityElement_169 {
     public int majorityElement(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
-        while (left < right) {
-            int index = quickSort(left, right, nums);
+        while (left <= right) {
+            int index = quickSort(nums, left, right);
             if (index == nums.length / 2) {
                 return nums[index];
             } else if (index < nums.length / 2) {
@@ -28,10 +28,10 @@ public class MajorityElement_169 {
                 right = index - 1;
             }
         }
-        return nums[left];
+        return -1;
     }
 
-    private int quickSort(int left, int right, int[] nums) {
+    private int quickSort(int[] nums, int left, int right) {
         int target = new Random().nextInt(right - left + 1) + left;
         swap(nums, left, target);
         int temp = nums[left];

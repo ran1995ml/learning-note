@@ -18,6 +18,7 @@ public class TrapRainWater_42 {
     public int trap(int[] height) {
         int sum = 0;
         Stack<Integer> stack = new Stack<>();
+
         for (int i = 0; i < height.length; i++) {
             while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
                 int cur = stack.pop();
@@ -26,7 +27,7 @@ public class TrapRainWater_42 {
                 int w = i - stack.peek() - 1;
                 sum += h * w;
             }
-            stack.add(i);
+            stack.push(i);
         }
         return sum;
     }

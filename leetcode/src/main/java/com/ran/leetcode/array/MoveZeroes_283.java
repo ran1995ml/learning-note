@@ -23,8 +23,8 @@ public class MoveZeroes_283 {
                 nums[p++] = nums[i];
             }
         }
-        while (p < nums.length) {
-            nums[p++] = 0;
+        for (int i = p; i < nums.length; i++) {
+            nums[i] = 0;
         }
     }
 }

@@ -9,7 +9,7 @@ import com.ran.leetcode.entity.TreeNode;
  * @since 2024/7/23 22:52
  */
 public class ValidateBST_98 {
-    private long value = Long.MIN_VALUE;
+    private long max = Long.MIN_VALUE;
 
     private boolean isValid = true;
 
@@ -28,8 +28,8 @@ public class ValidateBST_98 {
     private void dfs(TreeNode root) {
         if (root == null) return;
         dfs(root.left);
-        if (root.val > value) {
-            value = root.val;
+        if (root.val > max) {
+            max = root.val;
         } else {
             isValid = false;
             return;

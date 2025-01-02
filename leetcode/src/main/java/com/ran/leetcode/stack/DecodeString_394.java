@@ -17,22 +17,21 @@ public class DecodeString_394 {
 
     public String decodeString(String s) {
         char[] ch = s.toCharArray();
-        Stack<Integer> stackNum = new Stack<>();
         Stack<String> stackStr = new Stack<>();
-        StringBuffer sbNum = new StringBuffer();
+        Stack<Integer> stackNum = new Stack<>();
         StringBuffer sbStr = new StringBuffer();
+        StringBuffer sbNum = new StringBuffer();
 
         for (char c : ch) {
             if (c == '[') {
-                stackNum.push(Integer.parseInt(sbNum.toString()));
                 stackStr.push(sbStr.toString());
-                sbNum.setLength(0);
+                stackNum.push(Integer.parseInt(sbNum.toString()));
                 sbStr.setLength(0);
+                sbNum.setLength(0);
             } else if (c == ']') {
                 int curNum = stackNum.pop();
                 String curStr = stackStr.pop();
                 StringBuffer temp = new StringBuffer();
-
                 for (int i = 0; i < curNum; i++) {
                     temp.append(sbStr);
                 }

@@ -22,12 +22,11 @@ public class FlattenBinaryTreeToList_114 {
         while (root != null) {
             TreeNode left = root.left;
             if (left != null) {
-                TreeNode temp = left;
-                while (temp.right != null) {
-                    temp = temp.right;
+                while (left.right != null) {
+                    left = left.right;
                 }
-                temp.right = root.right;
-                root.right = left;
+                left.right = root.right;
+                root.right = root.left;
                 root.left = null;
             }
             root = root.right;
@@ -39,12 +38,11 @@ public class FlattenBinaryTreeToList_114 {
         dfs(root.left);
         TreeNode left = root.left;
         if (left != null) {
-            TreeNode temp = left;
-            while (temp.right != null) {
-                temp = temp.right;
+            while (left.right != null) {
+                left = left.right;
             }
-            temp.right = root.right;
-            root.right = left;
+            left.right = root.right;
+            root.right = root.left;
             root.left = null;
         }
         dfs(root.right);

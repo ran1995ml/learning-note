@@ -23,7 +23,7 @@ public class DiameterOfBinaryTree_543 {
         return max;
     }
 
-    public int dfs(TreeNode root) {
+    private int dfs(TreeNode root) {
         if (root == null) return 0;
         int left = dfs(root.left);
         int right = dfs(root.right);

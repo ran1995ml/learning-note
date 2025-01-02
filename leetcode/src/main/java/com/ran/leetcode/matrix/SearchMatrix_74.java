@@ -23,10 +23,10 @@ public class SearchMatrix_74 {
         while (i < row && j >= 0) {
             if (matrix[i][j] == target) {
                 return true;
-            } else if (matrix[i][j] < target) {
-                i++;
-            } else {
+            } else if (matrix[i][j] > target) {
                 j--;
+            } else {
+                i++;
             }
         }
         return false;

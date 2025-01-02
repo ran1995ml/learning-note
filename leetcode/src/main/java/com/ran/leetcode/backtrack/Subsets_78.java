@@ -24,7 +24,6 @@ public class Subsets_78 {
 
     private void dfs(List<List<Integer>> ans, List<Integer> list, int[] nums, int index) {
         ans.add(new ArrayList<>(list));
-
         for (int i = index; i < nums.length; i++) {
             list.add(nums[i]);
             dfs(ans, list, nums, i + 1);

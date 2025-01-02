@@ -19,23 +19,22 @@ public class GenerateParenthesis_22 {
 
     public List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
-        dfs(ans, new StringBuffer(), 0, 0, n);
+        dfs(ans, new StringBuffer(), n, 0, 0);
         return ans;
     }
 
-    private void dfs(List<String> ans, StringBuffer sb, int n1, int n2, int n) {
-        if (n2 > n1) return;
+    private void dfs(List<String> ans, StringBuffer sb, int n, int n1, int n2) {
+        if (n1 < n2) return;
         if (n1 > n) return;
-        if (n1 == n && n2 == n){
-            ans.add(String.valueOf(sb));
+        if (n1 == n && n2 == n) {
+            ans.add(new StringBuffer(sb).toString());
             return;
         }
-
         sb.append('(');
-        dfs(ans, sb, n1 + 1, n2, n);
+        dfs(ans, sb, n, n1 + 1, n2);
         sb.deleteCharAt(sb.length() - 1);
         sb.append(')');
-        dfs(ans, sb, n1, n2 + 1, n);
+        dfs(ans, sb, n, n1, n2 + 1);
         sb.deleteCharAt(sb.length() - 1);
     }
 }

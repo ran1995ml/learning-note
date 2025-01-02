@@ -28,6 +28,7 @@ public class Combinations_77 {
             ans.add(new ArrayList<>(list));
             return;
         }
+
         for (int i = index; i <= n; i++) {
             list.add(i);
             dfs(ans, list, n, k, i + 1);

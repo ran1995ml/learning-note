@@ -28,7 +28,7 @@ public class BinaryTreeMaxPathSum_124 {
         if (root == null) return 0;
         int left = Math.max(dfs(root.left), 0);
         int right = Math.max(dfs(root.right), 0);
-        max = Math.max(left + right + root.val, max);
+        max = Math.max(max, left + right + root.val);
         return Math.max(left, right) + root.val;
     }
 }

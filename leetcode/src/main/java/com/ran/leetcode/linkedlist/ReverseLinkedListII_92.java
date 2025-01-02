@@ -3,6 +3,7 @@ package com.ran.leetcode.linkedlist;
 import com.ran.leetcode.entity.ListNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * ReverseLinkedListII_92
@@ -28,20 +29,18 @@ public class ReverseLinkedListII_92 {
     public ListNode reverseBetween(ListNode head, int left, int right) {
         ListNode node = new ListNode(-1);
         node.next = head;
-
         ListNode pre = node;
         for (int i = 0; i < left - 1; i++) {
             pre = pre.next;
         }
 
         ListNode cur = pre.next;
-        for (int i = 0; i < right - left; i++) {
+        for (int i = left; i < right; i++) {
             ListNode next = cur.next;
             cur.next = next.next;
             next.next = pre.next;
             pre.next = next;
         }
-
         return node.next;
     }
 }

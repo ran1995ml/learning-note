@@ -18,7 +18,6 @@ public class PartitionEqualSubsetSum_416 {
         for (int num : nums) {
             sum += num;
         }
-
         if (sum % 2 > 0) return false;
         int target = sum / 2;
         boolean[] dp = new boolean[target + 1];
@@ -29,7 +28,6 @@ public class PartitionEqualSubsetSum_416 {
                 dp[j] = dp[j] || dp[j - num];
             }
         }
-
         return dp[target];
     }
 }

@@ -21,12 +21,17 @@ public class TopKFrequent_347 {
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>((o1, o2) -> map.get(o2) - map.get(o1));
-        minHeap.addAll(map.keySet());
-
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return map.get(o2) - map.get(o1);
+            }
+        });
+        maxHeap.addAll(map.keySet());
         int[] ans = new int[k];
-        for (int i = 0; i < k; i++) ans[i] = minHeap.poll();
+        for (int i = 0; i < k; i++) {
+            ans[i] = maxHeap.poll();
+        }
         return ans;
     }
 }

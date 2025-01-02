@@ -20,10 +20,12 @@ public class NumberOfIslands_200 {
 
     public int numIslands(char[][] grid) {
         int sum = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        int row = grid.length;
+        int col = grid[0].length;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 if (grid[i][j] == '1') {
-                    dfs(grid, i, j);
+                    dfs(grid, i, j, row, col);
                     sum++;
                 }
             }
@@ -31,11 +33,11 @@ public class NumberOfIslands_200 {
         return sum;
     }
 
-    private void dfs(char[][] grid, int i, int j) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == '0') return;
+    private void dfs(char[][] grid, int i, int j, int row, int col) {
+        if (i < 0 || j < 0 || i >= row || j >= col || grid[i][j] == '0') return;
         grid[i][j] = '0';
         for (int[] dir : directions) {
-            dfs(grid, i + dir[0], j + dir[1]);
+            dfs(grid, i + dir[0], j + dir[1], row, col);
         }
     }
 }

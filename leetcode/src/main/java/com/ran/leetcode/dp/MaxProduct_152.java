@@ -20,13 +20,12 @@ public class MaxProduct_152 {
 
         for (int num : nums) {
             if (num < 0) {
-                int temp = curMax;
-                curMax = curMin;
-                curMin = temp;
+                int temp = curMin;
+                curMin = curMax;
+                curMax = temp;
             }
-
-            curMax = Math.max(num, curMax * num);
-            curMin = Math.min(num, curMin * num);
+            curMin = Math.min(curMin * num, num);
+            curMax = Math.max(curMax * num, num);
             max = Math.max(max, curMax);
         }
         return max;

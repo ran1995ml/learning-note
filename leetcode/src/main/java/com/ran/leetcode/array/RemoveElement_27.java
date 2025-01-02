@@ -17,10 +17,8 @@ public class RemoveElement_27 {
 
     public int removeElement(int[] nums, int val) {
         int p = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != val) {
-                nums[p++] = nums[i];
-            }
+        for (int num : nums) {
+            if (num != val) nums[p++] = num;
         }
         return p;
     }

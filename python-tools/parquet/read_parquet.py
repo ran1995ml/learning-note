@@ -4,8 +4,8 @@ import os
 
 folder_path = "./file"
 sum = 0
-start = '2023-05-20 03:14:00'
-end = '2023-05-20 03:15:00'
+start = '2024-12-19 01:39:00'
+end = '2024-12-19 01:40:00'
 for filename in os.listdir(folder_path):
     file_path = os.path.join(folder_path, filename)
     df = pd.read_parquet(file_path)
