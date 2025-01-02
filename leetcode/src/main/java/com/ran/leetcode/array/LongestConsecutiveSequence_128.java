@@ -23,18 +23,15 @@ public class LongestConsecutiveSequence_128 {
         }
 
         int max = 0;
-        for (int num : set) {
+        for (int num : nums) {
+            if (set.contains(num + 1)) continue;
             int cur = num;
-            if (set.contains(cur - 1)) {
-                continue;
-            } else {
-                int len = 1;
-                while (set.contains(cur + 1)) {
-                    len++;
-                    cur++;
-                }
-                max = Math.max(len, max);
+            int length = 1;
+            while (set.contains(cur - 1)) {
+                cur--;
+                length++;
             }
+            max = Math.max(max, length);
         }
         return max;
     }

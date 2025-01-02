@@ -22,41 +22,45 @@ public class SortList_148 {
 
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode middleNode = getMiddleNode(head);
-        ListNode p1 = head;
-        ListNode p2 = middleNode.next;
-        middleNode.next = null;
-        return sort(sortList(p1), sortList(p2));
+        ListNode middle = getMiddleListNode(head);
+        ListNode p2 = middle.next;
+        middle.next = null;
+        return merge(sortList(head), sortList(p2));
     }
 
-    private ListNode sort(ListNode p1, ListNode p2) {
-        ListNode node = new ListNode(-1);
-        ListNode p = node;
-        while (p1 != null && p2 != null) {
-            if (p1.val < p2.val) {
-                p.next = p1;
-                p1 = p1.next;
-            } else {
-                p.next = p2;
-                p2 = p2.next;
-            }
-            p = p.next;
-        }
-        p.next = p1 == null ? p2 : p1;
-        return node.next;
-    }
-
-    private ListNode getMiddleNode(ListNode head) {
-        if (head == null || head.next == null) return head;
+    private ListNode getMiddleListNode(ListNode head) {
         ListNode node = new ListNode(-1);
         node.next = head;
         ListNode p1 = node;
         ListNode p2 = node;
-
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;
         }
         return p2;
+    }
+
+    private ListNode merge(ListNode p1, ListNode p2) {
+        ListNode node = new ListNode(-1);
+        ListNode p = node;
+        while (p1 != null || p2 != null) {
+            if (p1 != null && p2 != null) {
+                if (p1.val < p2.val) {
+                    p.next = new ListNode(p1.val);
+                    p1 = p1.next;
+                } else {
+                    p.next = new ListNode(p2.val);
+                    p2 = p2.next;
+                }
+            } else if (p1 != null) {
+                p.next = new ListNode(p1.val);
+                p1 = p1.next;
+            } else {
+                p.next = new ListNode(p2.val);
+                p2 = p2.next;
+            }
+            p = p.next;
+        }
+        return node.next;
     }
 }

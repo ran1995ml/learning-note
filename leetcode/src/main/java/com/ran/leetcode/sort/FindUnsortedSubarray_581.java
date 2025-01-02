@@ -23,33 +23,34 @@ public class FindUnsortedSubarray_581 {
         System.arraycopy(nums, 0, sortedNums, 0, nums.length);
         Arrays.sort(sortedNums);
         int left = 0;
-        int right = nums.length - 1;
         while (left < nums.length && nums[left] == sortedNums[left]) left++;
+        int right = nums.length - 1;
         while (right >= 0 && nums[right] == sortedNums[right]) right--;
-        if (right <= left) return 0;
+        if (left > right) return 0;
         return right - left + 1;
     }
 
     public int findUnsortedSubarray1(int[] nums) {
         int max = nums[0];
-        int end = -1;
+        int right = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] >= max) {
                 max = nums[i];
             } else {
-                end = i;
+                right = i;
             }
         }
 
         int min = nums[nums.length - 1];
-        int start = nums.length;
+        int left = nums.length - 1;
         for (int i = nums.length - 1; i >= 0; i--) {
             if (nums[i] <= min) {
                 min = nums[i];
             } else {
-                start = i;
+                left = i;
             }
         }
-        return end - start + 1;
+        if (right <= left) return 0;
+        return right - left + 1;
     }
 }

@@ -10,8 +10,6 @@ import java.util.List;
  * @since 2024/5/14 15:12
  */
 public class LetterCombinations_17 {
-    private final String[] digit2letter = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-
     public static void main(String[] args) {
         String digits = "23";
         LetterCombinations_17 obj = new LetterCombinations_17();
@@ -21,19 +19,21 @@ public class LetterCombinations_17 {
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
         if (digits.length() == 0) return ans;
-        dfs(ans, new StringBuffer(), digits, 0);
+        String[] digit2letter = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        dfs(ans, digit2letter, digits, new StringBuffer(), 0);
         return ans;
     }
 
-    private void dfs(List<String> ans, StringBuffer sb, String digits, int index) {
-        if (sb.length() == digits.length()) {
-            ans.add(sb.toString());
+    private void dfs(List<String> ans, String[] digit2letter, String digits, StringBuffer sb, int index) {
+        if (index == digits.length()) {
+            ans.add(new StringBuffer(sb).toString());
             return;
         }
-        char[] letters = digit2letter[digits.charAt(index) - '0'].toCharArray();
-        for (char letter : letters) {
-            sb.append(letter);
-            dfs(ans, sb, digits, index + 1);
+        int num = digits.charAt(index) - '0';
+        String str = digit2letter[num];
+        for (char c : str.toCharArray()) {
+            sb.append(c);
+            dfs(ans, digit2letter, digits, sb, index + 1);
             sb.deleteCharAt(sb.length() - 1);
         }
     }

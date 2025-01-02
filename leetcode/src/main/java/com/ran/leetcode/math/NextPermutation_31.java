@@ -20,18 +20,14 @@ public class NextPermutation_31 {
 
     public void nextPermutation(int[] nums) {
         int p1 = nums.length - 1;
-        while (p1 - 1 >= 0 && nums[p1] <= nums[p1 - 1]) {
-            p1--;
-        }
+        while (p1 - 1 >= 0 &&nums[p1 - 1] >= nums[p1]) p1--;
         if (p1 == 0) {
             rotate(nums, 0, nums.length - 1);
             return;
         }
-        p1--;
+        p1 = p1 - 1;
         int p2 = nums.length - 1;
-        while (nums[p2] <= nums[p1]) {
-            p2--;
-        }
+        while (nums[p2] <= nums[p1]) p2--;
         swap(nums, p1, p2);
         rotate(nums, p1 + 1, nums.length - 1);
     }

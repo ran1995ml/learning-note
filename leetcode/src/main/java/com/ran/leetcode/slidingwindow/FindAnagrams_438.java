@@ -20,8 +20,8 @@ public class FindAnagrams_438 {
         List<Integer> ans = new ArrayList<>();
         char[] sh = s.toCharArray();
         char[] ph = p.toCharArray();
-        int[] needs = new int[128];
         int[] windows = new int[128];
+        int[] needs = new int[128];
         for (char c : ph) {
             needs[c - 'a']++;
         }
@@ -30,9 +30,11 @@ public class FindAnagrams_438 {
         int right = 0;
         while (right < sh.length) {
             char c1 = sh[right];
-            if (needs[c1 - 'a'] > 0) windows[c1 - 'a']++;
+            if (needs[c1 - 'a'] > 0) {
+                windows[c1 - 'a']++;
+            }
             if (right - left + 1 == ph.length) {
-                if (Arrays.equals(needs, windows)) {
+                if (Arrays.equals(windows, needs)) {
                     ans.add(left);
                 }
                 char c2 = sh[left];
@@ -43,7 +45,6 @@ public class FindAnagrams_438 {
             }
             right++;
         }
-
         return ans;
     }
 }

@@ -17,19 +17,19 @@ public class LargestRectangleArea_84 {
     }
 
     public int largestRectangleArea(int[] heights) {
-        int max = 0;
+        int[] filledHeights = new int[heights.length + 2];
+        System.arraycopy(heights, 0, filledHeights, 1, heights.length);
         Stack<Integer> stack = new Stack<>();
-        int[] nums = new int[heights.length + 2];
-        System.arraycopy(heights, 0, nums, 1, heights.length);
+        int max = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            while (!stack.isEmpty() && nums[i] < nums[stack.peek()]) {
+        for (int i = 0; i < filledHeights.length; i++) {
+            while (!stack.isEmpty() && filledHeights[i] < filledHeights[stack.peek()]) {
                 int cur = stack.pop();
-                int h = nums[cur];
+                int h = filledHeights[cur];
                 int w = i - stack.peek() - 1;
                 max = Math.max(max, h * w);
             }
-            stack.add(i);
+            stack.push(i);
         }
         return max;
     }

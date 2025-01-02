@@ -18,27 +18,30 @@ public class MaximalRectangle_85 {
 
     public int maximalRectangle(char[][] matrix) {
         int max = 0;
-        int[] heights = new int[matrix[0].length];
-
+        int[] height = new int[matrix[0].length];
         for (char[] chars : matrix) {
             for (int j = 0; j < matrix[0].length; j++) {
-                heights[j] = chars[j] == '0' ? 0 : heights[j] + 1;
+                if (chars[j] == '0') {
+                    height[j] = 0;
+                } else {
+                    height[j] += 1;
+                }
             }
-            max = Math.max(max, maxArea(heights));
+            max = Math.max(max, maxArea(height));
         }
         return max;
     }
 
-    private int maxArea(int[] heights) {
+    private int maxArea(int[] height) {
         int max = 0;
-        int[] nums = new int[heights.length + 2];
-        System.arraycopy(heights, 0, nums, 1, heights.length);
+        int[] filledHeight = new int[height.length + 2];
+        System.arraycopy(height, 0, filledHeight, 1, height.length);
         Stack<Integer> stack = new Stack<>();
 
-        for (int i = 0; i < nums.length; i++) {
-            while (!stack.isEmpty() && nums[i] < nums[stack.peek()]) {
+        for (int i = 0; i < filledHeight.length; i++) {
+            while (!stack.isEmpty() && filledHeight[i] < filledHeight[stack.peek()]) {
                 int cur = stack.pop();
-                int h = nums[cur];
+                int h = filledHeight[cur];
                 int w = i - stack.peek() - 1;
                 max = Math.max(max, w * h);
             }

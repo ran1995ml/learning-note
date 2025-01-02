@@ -23,17 +23,16 @@ public class LinkedListCycleII_142 {
         System.out.println(node.val);
     }
 
+    //l1 + l2 = r
     public ListNode detectCycle(ListNode head) {
-        if (head == null) return null;
+        if (head == null || head.next == null) return null;
         ListNode p1 = head;
         ListNode p2 = head;
-
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;
             if (p1 == p2) break;
         }
-
         if (p1 == null || p1.next == null) return null;
         p1 = head;
         while (p1 != p2) {

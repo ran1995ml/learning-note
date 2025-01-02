@@ -1,5 +1,7 @@
 package com.ran.leetcode.sort;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -28,11 +30,11 @@ public class ReconstructQueue_406 {
                 }
             }
         });
-        LinkedList<int[]> ans = new LinkedList<>();
 
+        LinkedList<int[]> ans = new LinkedList<>();
         for (int[] p : people) {
             int index = p[1];
-            if (index > ans.size()) {
+            if (ans.size() < index) {
                 ans.add(p);
             } else {
                 ans.add(index, p);

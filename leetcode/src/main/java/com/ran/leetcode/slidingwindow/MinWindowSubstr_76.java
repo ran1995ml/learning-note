@@ -19,49 +19,40 @@ public class MinWindowSubstr_76 {
 
     public String minWindow(String s, String t) {
         String str = "";
-        int min = Integer.MAX_VALUE;
         char[] sh = s.toCharArray();
         char[] th = t.toCharArray();
-        int[] needed = new int[128];
-        int[] window = new int[128];
+        int[] windows = new int[128];
+        int[] needs = new int[128];
+        int target = 0;
+        for (char c : th) {
+            if (needs[c - 'A'] == 0) target++;
+            needs[c - 'A']++;
+        }
+
         int left = 0;
         int right = 0;
         int count = 0;
-        int target = 0;
-
-        for (char c : th) {
-            needed[c - 'A']++;
-        }
-
-        for (int i : needed) {
-            if (i > 0) target++;
-        }
-
+        int min = sh.length + 1;
         while (right < sh.length) {
             char c1 = sh[right];
-            if (needed[c1 - 'A'] > 0) {
-                window[c1 - 'A']++;
-                if (window[c1 - 'A'] == needed[c1 - 'A']) {
-                    count++;
-                }
+            if (needs[c1 - 'A'] > 0) {
+                windows[c1 - 'A']++;
+                if (windows[c1 - 'A'] == needs[c1 - 'A']) count++;
             }
             while (count == target) {
-                char c2 = sh[left];
                 if (right - left + 1 < min) {
                     min = right - left + 1;
                     str = s.substring(left, right + 1);
                 }
-                if (needed[c2 - 'A'] > 0) {
-                    window[c2 - 'A']--;
-                    if (window[c2 - 'A'] < needed[c2 - 'A']) {
-                        count--;
-                    }
+                char c2 = sh[left];
+                if (needs[c2 - 'A'] > 0) {
+                    windows[c2 - 'A']--;
+                    if (windows[c2 - 'A'] < needs[c2 - 'A']) count--;
                 }
                 left++;
             }
             right++;
         }
-
         return str;
     }
 }

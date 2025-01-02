@@ -2,6 +2,8 @@ package com.ran.leetcode.linkedlist;
 
 import com.ran.leetcode.entity.ListNode;
 
+import java.util.Stack;
+
 /**
  * PalindromeLinkedList_234
  *
@@ -17,26 +19,21 @@ public class PalindromeLinkedList_234 {
     }
 
     public boolean isPalindrome(ListNode head) {
-        ListNode middleNode = getMiddleNode(head);
-        ListNode p1 = head;
-        ListNode p2 = middleNode.next;
-        middleNode.next = null;
-        ListNode p3 = reverseList(p2);
-        while (p1 != null && p3 != null) {
-            if (p1.val != p3.val) return false;
+        ListNode middle = getMiddleListNode(head);
+        ListNode p1 = reverseListNode(middle);
+        ListNode p2 = head;
+        while (p1 != null) {
+            if (p1.val != p2.val) return false;
             p1 = p1.next;
-            p3 = p3.next;
+            p2 = p2.next;
         }
         return true;
     }
 
-    private ListNode getMiddleNode(ListNode head) {
+    private ListNode getMiddleListNode(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode node = new ListNode(-1);
-        node.next = head;
-        ListNode p1 = node;
-        ListNode p2 = node;
-
+        ListNode p1 = head;
+        ListNode p2 = head;
         while (p1 != null && p1.next != null) {
             p1 = p1.next.next;
             p2 = p2.next;
@@ -44,10 +41,10 @@ public class PalindromeLinkedList_234 {
         return p2;
     }
 
-    private ListNode reverseList(ListNode head) {
-        ListNode cur = head;
+    private ListNode reverseListNode(ListNode head) {
+        if (head == null || head.next == null) return head;
         ListNode pre = null;
-
+        ListNode cur = head;
         while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;

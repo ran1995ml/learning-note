@@ -3,6 +3,7 @@ package com.ran.leetcode.linkedlist;
 import com.ran.leetcode.entity.ListNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * RemoveNthFromEnd_19
@@ -13,8 +14,6 @@ import java.util.Arrays;
  */
 public class RemoveNthFromEnd_19 {
     public static void main(String[] args) {
-        //  -1 1 2 3 4   5 null
-        //               1 2
         int[] arrays = {1, 2, 3, 4, 5};
         ListNode head = ListNode.convertArray2LinkedList(arrays);
         int n = 3;
@@ -27,11 +26,11 @@ public class RemoveNthFromEnd_19 {
         ListNode node = new ListNode(-1);
         node.next = head;
         ListNode p1 = node;
-        ListNode p2 = node;
         while (n + 1 > 0) {
             p1 = p1.next;
             n--;
         }
+        ListNode p2 = node;
         while (p1 != null) {
             p1 = p1.next;
             p2 = p2.next;

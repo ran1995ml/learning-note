@@ -22,10 +22,11 @@ public class BinaryTreeInorderTraversal_94 {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
+        if (root == null) return ans;
         Stack<TreeNode> stack = new Stack<>();
-        while (root != null || !stack.isEmpty()) {
+        while (!stack.isEmpty() || root != null) {
             if (root != null) {
-                stack.add(root);
+                stack.push(root);
                 root = root.left;
             } else {
                 root = stack.pop();

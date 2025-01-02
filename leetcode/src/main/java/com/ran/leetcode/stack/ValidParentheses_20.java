@@ -20,23 +20,19 @@ public class ValidParentheses_20 {
         Stack<Character> stack = new Stack<>();
         for (char c : ch) {
             if (stack.isEmpty()) {
-                stack.add(c);
+                stack.push(c);
             } else {
-                if (match(c, stack.peek())) {
+                if (c == ')' && stack.peek() == '(') {
+                    stack.pop();
+                } else if (c == ']' && stack.peek() == '[') {
+                    stack.pop();
+                } else if (c == '}' && stack.peek() == '{') {
                     stack.pop();
                 } else {
-                    stack.add(c);
+                    stack.push(c);
                 }
             }
         }
         return stack.isEmpty();
-    }
-
-    private boolean match(char c1, char c2) {
-        if (c1 == ')' && c2 == '(') {
-            return true;
-        } else if (c1 == ']' && c2 == '[') {
-            return true;
-        } else return c1 == '}' && c2 == '{';
     }
 }

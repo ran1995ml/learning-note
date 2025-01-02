@@ -20,42 +20,39 @@ public class MinStack_155 {
         System.out.println(stack.getMin());
     }
 
-    private final Stack<Integer> stack;
+    private Stack<Integer> stack;
 
-    private final Stack<Integer> stackMin;
+    private Stack<Integer> stackMin;
 
     public MinStack_155() {
-        this.stack = new Stack<>();
-        this.stackMin = new Stack<>();
+        stack = new Stack<>();
+        stackMin = new Stack<>();
     }
 
     public void push(int val) {
-        this.stack.push(val);
-        if (this.stackMin.isEmpty()) {
-            this.stackMin.push(val);
-        } else {
-            if (val <= this.stackMin.peek()) {
-                this.stackMin.push(val);
-            }
+        if (stack.isEmpty()) {
+            stackMin.push(val);
+        } else if (val <= stackMin.peek()) {
+            stackMin.push(val);
         }
+        stack.push(val);
     }
 
     public void pop() {
-        if (this.stack.isEmpty()) {
-            throw new RuntimeException("empty stack");
-        } else {
-            int val = this.stack.pop();
-            if (val == this.stackMin.peek()) {
-                this.stackMin.pop();
-            }
+        if (stack.isEmpty()) throw new IllegalStateException("stack is empty");
+        int val = stack.pop();
+        if (val == stackMin.peek()) {
+            stackMin.pop();
         }
     }
 
     public int top() {
-        return this.stack.peek();
+        if (stack.isEmpty()) throw new IllegalStateException("stack is empty");
+        return stack.peek();
     }
 
     public int getMin() {
-        return this.stackMin.peek();
+        if (stack.isEmpty()) throw new IllegalStateException("stack is empty");
+        return stackMin.peek();
     }
 }

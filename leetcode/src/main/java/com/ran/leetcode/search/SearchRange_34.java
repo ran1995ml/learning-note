@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class SearchRange_34 {
     public static void main(String[] args) {
         SearchRange_34 obj = new SearchRange_34();
-        int[] nums = {2, 2};
+        int[] nums = {5, 7, 7, 8, 8, 10};
         int target = 8;
         System.out.println(Arrays.toString(obj.searchRange(nums, target)));
     }
@@ -30,9 +30,7 @@ public class SearchRange_34 {
                 left = mid + 1;
             }
         }
-        if (left < nums.length && nums[left] == target) {
-            index1 = left;
-        }
+        if (left < nums.length && nums[left] == target) index1 = left;
         right = nums.length;
         while (left < right) {
             int mid = (right - left) / 2 + left;
@@ -42,9 +40,7 @@ public class SearchRange_34 {
                 left = mid + 1;
             }
         }
-        if (right - 1 >= 0 && nums[right - 1] == target) {
-            index2 = right - 1;
-        }
+        if (right - 1 >= 0 && nums[right - 1] == target) index2 = right - 1;
         return new int[] {index1, index2};
     }
 }

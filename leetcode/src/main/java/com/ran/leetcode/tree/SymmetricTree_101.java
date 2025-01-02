@@ -17,14 +17,14 @@ public class SymmetricTree_101 {
     }
 
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return false;
+        if (root == null) return true;
         return dfs(root.left, root.right);
     }
 
-    private boolean dfs(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) return true;
-        if (root1 == null || root2 == null) return false;
-        if (root1.val != root2.val) return false;
-        return dfs(root1.left, root2.right) && dfs(root1.right, root2.left);
+    private boolean dfs(TreeNode root1, TreeNode roo2) {
+        if (root1 == null && roo2 == null) return true;
+        if (root1 == null || roo2 == null) return false;
+        if (root1.val != roo2.val) return false;
+        return dfs(root1.left, roo2.right) && dfs(root1.right, roo2.left);
     }
 }
