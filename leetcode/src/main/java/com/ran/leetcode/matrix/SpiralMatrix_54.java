@@ -19,37 +19,39 @@ public class SpiralMatrix_54 {
 
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
-        int i1 = 0;
-        int j1 = 0;
-        int i2 = matrix.length - 1;
-        int j2 = matrix[0].length - 1;
-        while (i1 <= i2 && j1 <= j2) {
-            traverse(ans, matrix, i1++, j1++, i2--, j2--);
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int i0 = 0;
+        int j0 = 0;
+        int i1 = row - 1;
+        int j1 = col - 1;
+        while (i0 <= i1 && j0 <= j1) {
+            traverse(ans, matrix, i0++, j0++, i1--, j1--);
         }
         return ans;
     }
 
-    private void traverse(List<Integer> ans, int[][] matrix, int i1, int j1, int i2, int j2) {
-        if (i1 == i2) {
-            for (int j = j1; j <= j2; j++) {
-                ans.add(matrix[i1][j]);
+    private void traverse(List<Integer> ans, int[][] matrix, int i0, int j0, int i1, int j1) {
+        if (i0 == i1) {
+            for (int j = j0; j <= j1; j++) {
+                ans.add(matrix[i0][j]);
             }
-        } else if (j1 == j2) {
-            for (int i = i1; i <= i2; i++) {
-                ans.add(matrix[i][j1]);
+        } else if (j0 == j1) {
+            for (int i = i0; i <= i1; i++) {
+                ans.add(matrix[i][j0]);
             }
         } else {
-            for (int j = j1; j < j2; j++) {
+            for (int j = j0; j < j1; j++) {
+                ans.add(matrix[i0][j]);
+            }
+            for (int i = i0; i < i1; i++) {
+                ans.add(matrix[i][j1]);
+            }
+            for (int j = j1; j > j0; j--) {
                 ans.add(matrix[i1][j]);
             }
-            for (int i = i1; i < i2; i++) {
-                ans.add(matrix[i][j2]);
-            }
-            for (int j = j2; j > j1; j--) {
-                ans.add(matrix[i2][j]);
-            }
-            for (int i = i2; i > i1; i--) {
-                ans.add(matrix[i][j1]);
+            for (int i = i1; i > i0; i--) {
+                ans.add(matrix[i][j0]);
             }
         }
     }

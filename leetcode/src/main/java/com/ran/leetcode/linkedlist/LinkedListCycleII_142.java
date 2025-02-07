@@ -25,7 +25,6 @@ public class LinkedListCycleII_142 {
 
     //l1 + l2 = r
     public ListNode detectCycle(ListNode head) {
-        if (head == null || head.next == null) return null;
         ListNode p1 = head;
         ListNode p2 = head;
         while (p1 != null && p1.next != null) {

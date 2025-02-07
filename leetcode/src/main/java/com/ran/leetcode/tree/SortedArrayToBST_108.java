@@ -21,7 +21,7 @@ public class SortedArrayToBST_108 {
 
     private TreeNode dfs(int[] nums, int start, int end) {
         if (start > end) return null;
-        int index = (start + end) / 2;
+        int index = (end - start) / 2 + start;
         TreeNode root = new TreeNode(nums[index]);
         root.left = dfs(nums, start, index - 1);
         root.right = dfs(nums, index + 1, end);

@@ -15,17 +15,17 @@ public class MaxProfitIV_188 {
     }
 
     public int maxProfit(int k, int[] prices) {
-        int[][] dp = new int[k + 1][2];
-        for (int i = 0; i < prices.length; i++) {
-            for (int j = 1; j <= k; j++) {
-                if (i == 0) {
-                    dp[j][1] = - prices[i];
+        int[][][] dp = new int[k + 1][prices.length][2];
+        for (int i = 1; i <= k; i++) {
+            for (int j = 0; j < prices.length; j++) {
+                if (j == 0) {
+                    dp[i][j][1] = - prices[j];
                 } else {
-                    dp[j][0] = Math.max(dp[j][0], dp[j][1] + prices[i]);
-                    dp[j][1] = Math.max(dp[j][1], dp[j - 1][0] - prices[i]);
+                    dp[i][j][0] = Math.max(dp[i][j - 1][0], dp[i][j - 1][1] + prices[j]);
+                    dp[i][j][1] = Math.max(dp[i - 1][j - 1][0] - prices[j], dp[i][j - 1][1]);
                 }
             }
         }
-        return dp[k][0];
+        return dp[k][prices.length - 1][0];
     }
 }

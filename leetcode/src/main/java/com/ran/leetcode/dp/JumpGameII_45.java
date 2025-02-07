@@ -17,21 +17,20 @@ public class JumpGameII_45 {
 
     public int jump(int[] nums) {
         int[] dp = new int[nums.length];
-        Arrays.fill(dp, nums.length + 1);
+        Arrays.fill(dp, nums.length);
         dp[0] = 0;
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i; j < i + nums[i]; j++) {
-                int index = j < nums.length ? j : nums.length - 1;
-                dp[index] = Math.min(dp[index], dp[i] + 1);
+            for (int j = i; j <= i + nums[i] && j < nums.length; j++) {
+                dp[j] = Math.min(dp[j], dp[i] + 1);
             }
         }
         return dp[nums.length - 1];
     }
 
     public int jump1(int[] nums) {
-        int end = 0;
         int max = 0;
         int steps = 0;
+        int end = 0;
         for (int i = 0; i < nums.length - 1; i++) {
             max = Math.max(max, i + nums[i]);
             if (i == end) {

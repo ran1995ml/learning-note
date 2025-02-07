@@ -33,14 +33,12 @@ public class AddTwoNumbers_2 {
             int v2 = p2 == null ? 0 : p2.val;
             int sum = (v1 + v2 + col) % 10;
             col = (v1 + v2 + col) / 10;
-            p1 = p1 == null ? null : p1.next;
-            p2 = p2 == null ? null : p2.next;
             p.next = new ListNode(sum);
             p = p.next;
+            p1 = p1 == null ? null : p1.next;
+            p2 = p2 == null ? null : p2.next;
         }
-        if (col > 0) {
-            p.next = new ListNode(col);
-        }
+        if (col > 0) p.next = new ListNode(col);
         return node.next;
     }
 }

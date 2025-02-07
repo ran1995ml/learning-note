@@ -20,11 +20,12 @@ public class FindKthLargest_215 {
     public int findKthLargest(int[] nums, int k) {
         int left = 0;
         int right = nums.length - 1;
+        int target = nums.length - k;
         while (left <= right) {
             int index = quickSort(nums, left, right);
-            if (index == nums.length - k) {
+            if (index == target) {
                 return nums[index];
-            } else if (index < nums.length - k) {
+            } else if (index < target) {
                 left = index + 1;
             } else {
                 right = index - 1;
@@ -34,8 +35,6 @@ public class FindKthLargest_215 {
     }
 
     private int quickSort(int[] nums, int left, int right) {
-        int target = new Random().nextInt(right - left + 1) + left;
-        swap(nums, left, target);
         int temp = nums[left];
         while (left < right) {
             while (left < right && nums[right] >= temp) right--;
@@ -45,11 +44,5 @@ public class FindKthLargest_215 {
         }
         nums[left] = temp;
         return left;
-    }
-
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
     }
 }

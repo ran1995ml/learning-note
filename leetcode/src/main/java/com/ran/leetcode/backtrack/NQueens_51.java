@@ -1,5 +1,7 @@
 package com.ran.leetcode.backtrack;
 
+import org.w3c.dom.ls.LSException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,51 +20,52 @@ public class NQueens_51 {
     }
 
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> ans = new ArrayList<>();
-        char[][] board = new char[n][n];
+        char[][] queens = new char[n][n];
         for (int i = 0; i < n; i++) {
-            Arrays.fill(board[i], '.');
+            Arrays.fill(queens[i], '.');
         }
-        dfs(ans, board, 0, n);
+        List<List<String>> ans = new ArrayList<>();
+        dfs(ans, queens, n, 0);
         return ans;
     }
 
-    private void dfs(List<List<String>> ans, char[][] board, int i, int n) {
-        if (i == n) {
+    private void dfs(List<List<String>> ans, char[][] queens, int n, int index) {
+        if (index == n) {
             List<String> list = new ArrayList<>();
-            for (char[] ch : board) {
-                list.add(new String(ch));
+            for (char[] queen : queens) {
+                list.add(new String(queen));
             }
             ans.add(list);
             return;
         }
-        for (int j = 0; j < n; j++) {
-            if (isValid(board, i, j, n)) {
-                board[i][j] = 'Q';
-                dfs(ans, board, i + 1, n);
-                board[i][j] = '.';
+        char[] queen = queens[index];
+        for (int i = 0; i < n; i++) {
+            if (isValid(queens, index, i, n)) {
+                queen[i] = 'Q';
+                dfs(ans, queens, n, index + 1);
+                queen[i] = '.';
             }
         }
     }
 
-    private boolean isValid(char[][] board, int i1, int j1, int n) {
+    private boolean isValid(char[][] queens, int i1, int j1, int n) {
         for (int i = 0; i < n; i++) {
-            if (board[i][j1] == 'Q') return false;
+            if (queens[i][j1] == 'Q') return false;
         }
         for (int j = 0; j < n; j++) {
-            if (board[i1][j] == 'Q') return false;
+            if (queens[i1][j] == 'Q') return false;
         }
-        for (int k = 1; i1 - k >= 0 && j1 - k >= 0; k++) {
-            if (board[i1 - k][j1 - k] == 'Q') return false;
+        for (int i = i1 - 1, j = j1 - 1; i >= 0 && j >= 0; i--, j--) {
+            if (queens[i][j] == 'Q') return false;
         }
-        for (int k = 1; i1 - k >= 0 && j1 + k < n; k++) {
-            if (board[i1 - k][j1 + k] == 'Q') return false;
+        for (int i = i1 + 1, j = j1 - 1; i < n && j >= 0; i++, j--) {
+            if (queens[i][j] == 'Q') return false;
         }
-        for (int k = 1; i1 + k < n && j1 - k >= 0; k++) {
-            if (board[i1 + k][j1 - k] == 'Q') return false;
+        for (int i = i1 - 1, j = j1 + 1; i >= 0 && j < n; i--, j++) {
+            if (queens[i][j] == 'Q') return false;
         }
-        for (int k = 1; i1 + k < n && j1 + k < n; k++) {
-            if (board[i1 + k][j1 + k] == 'Q') return false;
+        for (int i = i1 + 1, j = j1 + 1; i < n && j < n; i++, j++) {
+            if (queens[i][j] == 'Q') return false;
         }
         return true;
     }

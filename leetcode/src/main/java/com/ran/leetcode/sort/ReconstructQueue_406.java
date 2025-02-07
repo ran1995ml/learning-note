@@ -22,24 +22,23 @@ public class ReconstructQueue_406 {
     public int[][] reconstructQueue(int[][] people) {
         Arrays.sort(people, new Comparator<int[]>() {
             @Override
-            public int compare(int[] p1, int[] p2) {
-                if (p1[0] == p2[0]) {
-                    return p1[1] - p2[1];
-                } else {
-                    return p2[0] - p1[0];
+            public int compare(int[] o1, int[] o2) {
+                if (o1[0] == o2[0]) {
+                    return o1[1] - o2[1];
                 }
+                return o2[0] - o1[0];
             }
         });
-
-        LinkedList<int[]> ans = new LinkedList<>();
+        System.out.println(Arrays.deepToString(people));
+        LinkedList<int[]> list = new LinkedList<>();
         for (int[] p : people) {
             int index = p[1];
-            if (ans.size() < index) {
-                ans.add(p);
+            if (list.size() < index) {
+                list.add(p);
             } else {
-                ans.add(index, p);
+                list.add(index, p);
             }
         }
-        return ans.toArray(new int[][] {});
+        return list.toArray(new int[][] {});
     }
 }

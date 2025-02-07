@@ -16,7 +16,7 @@ public class LengthLIS_300 {
     }
 
     public int lengthOfLIS(int[] nums) {
-        int max = 0;
+        int max = 1;
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
         for (int i = 0; i < nums.length; i++) {
@@ -25,7 +25,7 @@ public class LengthLIS_300 {
                     dp[j] = Math.max(dp[j], dp[i] + 1);
                 }
             }
-            max = Math.max(max, dp[i]);
+            max = Math.max(dp[i], max);
         }
         return max;
     }

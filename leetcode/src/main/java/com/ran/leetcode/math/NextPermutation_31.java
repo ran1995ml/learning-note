@@ -19,20 +19,20 @@ public class NextPermutation_31 {
     }
 
     public void nextPermutation(int[] nums) {
-        int p1 = nums.length - 1;
-        while (p1 - 1 >= 0 &&nums[p1 - 1] >= nums[p1]) p1--;
-        if (p1 == 0) {
-            rotate(nums, 0, nums.length - 1);
+        int p = nums.length - 1;
+        while (p - 1 >= 0 && nums[p] <= nums[p - 1]) p--;
+        if (p == 0) {
+            reverse(nums, 0, nums.length - 1);
             return;
         }
-        p1 = p1 - 1;
-        int p2 = nums.length - 1;
-        while (nums[p2] <= nums[p1]) p2--;
-        swap(nums, p1, p2);
-        rotate(nums, p1 + 1, nums.length - 1);
+        p--;
+        int p1 = nums.length - 1;
+        while (nums[p1] <= nums[p]) p1--;
+        swap(nums, p, p1);
+        reverse(nums, p + 1, nums.length - 1);
     }
 
-    private void rotate(int[] nums, int i, int j) {
+    private void reverse(int[] nums, int i, int j) {
         while (i < j) {
             swap(nums, i, j);
             i++;

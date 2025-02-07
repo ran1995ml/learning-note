@@ -19,22 +19,22 @@ public class Permutations_46 {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         boolean[] visited = new boolean[nums.length];
-        dfs(ans, new ArrayList<>(), nums, visited);
+        dfs(ans, new ArrayList<>(), visited, nums);
         return ans;
     }
 
-    private void dfs(List<List<Integer>> ans, List<Integer> list, int[] nums, boolean[] visited) {
-        if (list.size() == nums.length) {
+    private void dfs(List<List<Integer>> ans, List<Integer> list, boolean[] visited, int[] nums) {
+        if (nums.length == list.size()) {
             ans.add(new ArrayList<>(list));
             return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (visited[i]) continue;
-            list.add(nums[i]);
             visited[i] = true;
-            dfs(ans, list, nums, visited);
-            visited[i] = false;
+            list.add(nums[i]);
+            dfs(ans, list, visited, nums);
             list.remove(list.size() - 1);
+            visited[i] = false;
         }
     }
 }

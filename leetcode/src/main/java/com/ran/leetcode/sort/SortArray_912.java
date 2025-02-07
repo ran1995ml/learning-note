@@ -13,8 +13,8 @@ public class SortArray_912 {
     public static void main(String[] args) {
         SortArray_912 obj = new SortArray_912();
         int[] nums = {5, 1, 1, 2, 0, 0};
-//        obj.bubbleSort(nums);
-        obj.quickSort(nums, 0, nums.length - 1);
+        obj.bubbleSort(nums);
+//        obj.quickSort(nums, 0, nums.length - 1);
 //        obj.heapSort(nums);
 //        System.out.println(Arrays.toString(obj.mergeSort(nums)));
         System.out.println(Arrays.toString(nums));
@@ -23,7 +23,7 @@ public class SortArray_912 {
     public void bubbleSort(int[] nums) {
         for (int i = 0; i < nums.length - 1; i++) {
             boolean sorted = true;
-            for (int j = 0; j < nums.length - i - 1; j++) {
+            for (int j = 0; j < nums.length - 1 - i; j++) {
                 if (nums[j] > nums[j + 1]) {
                     swap(nums, j, j + 1);
                     sorted = false;
@@ -58,45 +58,44 @@ public class SortArray_912 {
         return merge(mergeSort(left), mergeSort(right));
     }
 
+    private int[] merge(int[] left, int[] right) {
+        int[] nums = new int[left.length + right.length];
+        int i = 0;
+        int j = 0;
+        for (int k = 0; k < nums.length; k++) {
+            if (i < left.length && j < right.length) {
+                nums[k] = left[i] < right[j] ? left[i++] : right[j++];
+            } else if (i < left.length) {
+                nums[k] = left[i++];
+            } else {
+                nums[k] = right[j++];
+            }
+        }
+        return nums;
+    }
+
     public void heapSort(int[] nums) {
         for (int i = nums.length / 2; i >= 0; i--) {
             adjustHeap(nums, i, nums.length);
         }
-
         for (int i = nums.length - 1; i > 0; i--) {
             swap(nums, 0, i);
             adjustHeap(nums, 0, i);
         }
     }
 
-    private void adjustHeap(int[] nums, int rootIndex, int length) {
-        int temp = nums[rootIndex];
-        for (int i = 2 * rootIndex + 1; i < length; i = 2 * i + 1) {
-            if (i + 1 < length && nums[i + 1] > nums[i]) i++;
-            if (nums[i] > temp) {
-                nums[rootIndex] = nums[i];
-                rootIndex = i;
+    private void adjustHeap(int[] nums, int i, int length) {
+        int temp = nums[i];
+        for (int k = 2 * i + 1; k < length; k = 2 * k + 1) {
+            if (k + 1 < length && nums[k + 1] > nums[k]) k++;
+            if (nums[k] > temp) {
+                nums[i] = nums[k];
+                i = k;
             } else {
                 break;
             }
         }
-        nums[rootIndex] = temp;
-    }
-
-    private int[] merge(int[] left, int[] right) {
-        int[] nums = new int[left.length + right.length];
-        int p1 = 0;
-        int p2 = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (p1 < left.length && p2 < right.length) {
-                nums[i] = left[p1] < right[p2] ? left[p1++] : right[p2++];
-            } else if (p1 < left.length) {
-                nums[i] = left[p1++];
-            } else {
-                nums[i] = right[p2++];
-            }
-        }
-        return nums;
+        nums[i] = temp;
     }
 
     private void swap(int[] nums, int i, int j) {

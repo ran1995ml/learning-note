@@ -21,15 +21,15 @@ public class MergeIntervals_56 {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
         List<int[]> ans = new ArrayList<>();
-
         for (int[] interval : intervals) {
             if (ans.isEmpty()) {
                 ans.add(interval);
             } else {
-                if (interval[0] <= ans.get(ans.size() - 1)[1]) {
-                    ans.get(ans.size() - 1)[1] = Math.max(interval[1], ans.get(ans.size() - 1)[1]);
-                } else {
+                if (interval[0] > ans.get(ans.size() - 1)[1]) {
                     ans.add(interval);
+                } else {
+                    int end = Math.max(interval[1], ans.get(ans.size() - 1)[1]);
+                    ans.get(ans.size() - 1)[1] = end;
                 }
             }
         }

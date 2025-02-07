@@ -2,6 +2,7 @@ package com.ran.leetcode.slidingwindow;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * MinWindowSubstr_76
@@ -19,35 +20,32 @@ public class MinWindowSubstr_76 {
 
     public String minWindow(String s, String t) {
         String str = "";
-        char[] sh = s.toCharArray();
+        int min = Integer.MAX_VALUE;
+        Map<Character, Integer> needs = new HashMap<>();
+        Map<Character, Integer> windows = new HashMap<>();
         char[] th = t.toCharArray();
-        int[] windows = new int[128];
-        int[] needs = new int[128];
-        int target = 0;
+        char[] sh = s.toCharArray();
         for (char c : th) {
-            if (needs[c - 'A'] == 0) target++;
-            needs[c - 'A']++;
+            needs.put(c, needs.getOrDefault(c, 0) + 1);
         }
-
         int left = 0;
         int right = 0;
         int count = 0;
-        int min = sh.length + 1;
         while (right < sh.length) {
             char c1 = sh[right];
-            if (needs[c1 - 'A'] > 0) {
-                windows[c1 - 'A']++;
-                if (windows[c1 - 'A'] == needs[c1 - 'A']) count++;
+            if (needs.containsKey(c1)) {
+                windows.put(c1, windows.getOrDefault(c1, 0) + 1);
+                if (windows.get(c1).equals(needs.get(c1))) count++;
             }
-            while (count == target) {
+            while (count == needs.size()) {
                 if (right - left + 1 < min) {
                     min = right - left + 1;
                     str = s.substring(left, right + 1);
                 }
                 char c2 = sh[left];
-                if (needs[c2 - 'A'] > 0) {
-                    windows[c2 - 'A']--;
-                    if (windows[c2 - 'A'] < needs[c2 - 'A']) count--;
+                if (needs.containsKey(c2)) {
+                    windows.put(c2, windows.get(c2) - 1);
+                    if (windows.get(c2) < needs.get(c2)) count--;
                 }
                 left++;
             }

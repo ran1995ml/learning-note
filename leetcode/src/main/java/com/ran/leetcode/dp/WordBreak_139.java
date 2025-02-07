@@ -22,12 +22,12 @@ public class WordBreak_139 {
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
-        for (int i = 0; i <= s.length(); i++) {
-            for (int j = i + 1; j <= s.length(); j++) {
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = s.length(); j > i; j--) {
                 if (dp[i] && wordDict.contains(s.substring(i, j))) {
                     dp[j] = true;
-                    if (dp[s.length()]) return true;
                 }
+                if (dp[s.length()]) return true;
             }
         }
         return dp[s.length()];

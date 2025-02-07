@@ -15,11 +15,10 @@ public class PalindromicSubstr_647 {
 
     public int countSubstrings(String s) {
         int sum = 0;
-        char[] ch = s.toCharArray();
-        boolean[][] dp = new boolean[ch.length][ch.length];
-        for (int i = ch.length - 1; i >= 0; i--) {
-            for (int j = i; j < ch.length; j++) {
-                if (ch[i] == ch[j] && (j - i <= 2 || dp[i + 1][j - 1])) {
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i <= 2 || dp[i + 1][j - 1])) {
                     dp[i][j] = true;
                     sum++;
                 }

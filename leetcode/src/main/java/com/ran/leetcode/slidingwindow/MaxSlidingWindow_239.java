@@ -23,17 +23,16 @@ public class MaxSlidingWindow_239 {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int[] ans = new int[nums.length - k + 1];
         LinkedList<Integer> queue = new LinkedList<>();
-
         for (int i = 0; i < nums.length; i++) {
-            while (!queue.isEmpty() && nums[i] > nums[queue.peekLast()]) {
+            while (!queue.isEmpty() && nums[i] >= nums[queue.peekLast()]) {
                 queue.pollLast();
             }
-            queue.add(i);
+            queue.addLast(i);
+            if (i == queue.peekFirst() + k) {
+                queue.pollFirst();
+            }
             if (i >= k - 1) {
                 ans[i - k + 1] = nums[queue.peekFirst()];
-            }
-            if (queue.peekFirst() == i - k + 1) {
-                queue.pollFirst();
             }
         }
         return ans;

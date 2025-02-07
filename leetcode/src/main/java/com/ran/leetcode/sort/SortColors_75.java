@@ -19,17 +19,17 @@ public class SortColors_75 {
     public void sortColors(int[] nums) {
         int p0 = 0;
         int p2 = nums.length - 1;
-        int p1 = 0;
-        while (p1 <= p2) {
-            if (nums[p1] == 0) {
-                swap(nums, p1, p0);
+        int i = 0;
+        while (i <= p2) {
+            if (nums[i] == 0) {
+                swap(nums, i, p0);
                 p0++;
-                p1++;
-            } else if (nums[p1] == 2) {
-                swap(nums, p1, p2);
+                i++;
+            } else if (nums[i] == 2) {
+                swap(nums, i, p2);
                 p2--;
             } else {
-                p1++;
+                i++;
             }
         }
     }
