@@ -3,6 +3,7 @@ package com.ran.leetcode.linkedlist;
 import com.ran.leetcode.entity.ListNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * SwapPairs_24
@@ -19,13 +20,13 @@ public class SwapPairs_24 {
         System.out.println(Arrays.toString(ListNode.convertLinkedList2Array(node)));
     }
 
+    // -1->1->2->3->4
     public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
         ListNode node = new ListNode(-1);
         node.next = head;
+        ListNode cur = node.next;
         ListNode pre = node;
-        ListNode cur = head;
-        while (cur != null && cur.next != null) {
+        while (cur.next != null) {
             ListNode next = cur.next;
             cur.next = next.next;
             next.next = cur;

@@ -31,8 +31,8 @@ public class FindUnsortedSubarray_581 {
     }
 
     public int findUnsortedSubarray1(int[] nums) {
-        int max = nums[0];
         int right = 0;
+        int max = nums[0];
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] >= max) {
                 max = nums[i];
@@ -40,17 +40,16 @@ public class FindUnsortedSubarray_581 {
                 right = i;
             }
         }
-
-        int min = nums[nums.length - 1];
         int left = nums.length - 1;
+        int min = nums[nums.length - 1];
         for (int i = nums.length - 1; i >= 0; i--) {
             if (nums[i] <= min) {
                 min = nums[i];
             } else {
-                left = i;
+                left = min;
             }
         }
-        if (right <= left) return 0;
+        if (left > right) return -1;
         return right - left + 1;
     }
 }

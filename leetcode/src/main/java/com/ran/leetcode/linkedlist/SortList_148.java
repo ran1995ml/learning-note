@@ -3,6 +3,7 @@ package com.ran.leetcode.linkedlist;
 import com.ran.leetcode.entity.ListNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -22,13 +23,26 @@ public class SortList_148 {
 
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) return head;
-        ListNode middle = getMiddleListNode(head);
+        ListNode middle = getMiddle(head);
         ListNode p2 = middle.next;
         middle.next = null;
         return merge(sortList(head), sortList(p2));
     }
 
-    private ListNode getMiddleListNode(ListNode head) {
+    public ListNode merge(ListNode p1, ListNode p2) {
+        if (p1 == null && p2 == null) return null;
+        if (p1 == null || p2 == null) return p1 == null ? p2 : p1;
+        if (p1.val < p2.val) {
+            p1.next = merge(p1.next, p2);
+            return p1;
+        } else {
+            p2.next = merge(p1, p2.next);
+            return p2;
+        }
+    }
+
+    public ListNode getMiddle(ListNode head) {
+        if (head == null || head.next == null) return head;
         ListNode node = new ListNode(-1);
         node.next = head;
         ListNode p1 = node;
@@ -38,29 +52,5 @@ public class SortList_148 {
             p2 = p2.next;
         }
         return p2;
-    }
-
-    private ListNode merge(ListNode p1, ListNode p2) {
-        ListNode node = new ListNode(-1);
-        ListNode p = node;
-        while (p1 != null || p2 != null) {
-            if (p1 != null && p2 != null) {
-                if (p1.val < p2.val) {
-                    p.next = new ListNode(p1.val);
-                    p1 = p1.next;
-                } else {
-                    p.next = new ListNode(p2.val);
-                    p2 = p2.next;
-                }
-            } else if (p1 != null) {
-                p.next = new ListNode(p1.val);
-                p1 = p1.next;
-            } else {
-                p.next = new ListNode(p2.val);
-                p2 = p2.next;
-            }
-            p = p.next;
-        }
-        return node.next;
     }
 }

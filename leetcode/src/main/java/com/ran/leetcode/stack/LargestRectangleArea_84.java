@@ -21,11 +21,9 @@ public class LargestRectangleArea_84 {
         System.arraycopy(heights, 0, filledHeights, 1, heights.length);
         Stack<Integer> stack = new Stack<>();
         int max = 0;
-
         for (int i = 0; i < filledHeights.length; i++) {
             while (!stack.isEmpty() && filledHeights[i] < filledHeights[stack.peek()]) {
-                int cur = stack.pop();
-                int h = filledHeights[cur];
+                int h = filledHeights[stack.pop()];
                 int w = i - stack.peek() - 1;
                 max = Math.max(max, h * w);
             }

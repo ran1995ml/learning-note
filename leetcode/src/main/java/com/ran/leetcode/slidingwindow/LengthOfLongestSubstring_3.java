@@ -18,12 +18,11 @@ public class LengthOfLongestSubstring_3 {
     }
 
     public int lengthOfLongestSubstring(String s) {
-        char[] ch = s.toCharArray();
-        Map<Character, Integer> map = new HashMap<>();
-
         int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
         int left = 0;
         int right = 0;
+        char[] ch = s.toCharArray();
         while (right < ch.length) {
             char c1 = ch[right];
             map.put(c1, map.getOrDefault(c1, 0) + 1);
@@ -32,7 +31,7 @@ public class LengthOfLongestSubstring_3 {
                 map.put(c2, map.get(c2) - 1);
                 left++;
             }
-            max = Math.max(max, right - left + 1);
+            max = Math.max(right - left + 1, max);
             right++;
         }
         return max;

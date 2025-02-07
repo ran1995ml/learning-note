@@ -17,21 +17,20 @@ public class LongestConsecutiveSequence_128 {
     }
 
     public int longestConsecutive(int[] nums) {
+        int max = 0;
         Set<Integer> set = new HashSet<>();
         for (int num : nums) {
             set.add(num);
         }
-
-        int max = 0;
-        for (int num : nums) {
-            if (set.contains(num + 1)) continue;
+        for (int num : set) {
             int cur = num;
-            int length = 1;
-            while (set.contains(cur - 1)) {
-                cur--;
-                length++;
+            if (set.contains(cur - 1)) continue;
+            int len = 1;
+            while (set.contains(cur + 1)) {
+                cur++;
+                len++;
             }
-            max = Math.max(max, length);
+            max = Math.max(max, len);
         }
         return max;
     }

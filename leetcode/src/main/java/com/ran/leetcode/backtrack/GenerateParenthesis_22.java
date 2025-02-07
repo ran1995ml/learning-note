@@ -24,12 +24,12 @@ public class GenerateParenthesis_22 {
     }
 
     private void dfs(List<String> ans, StringBuffer sb, int n, int n1, int n2) {
-        if (n1 < n2) return;
-        if (n1 > n) return;
         if (n1 == n && n2 == n) {
             ans.add(new StringBuffer(sb).toString());
             return;
         }
+        if (n1 < n2) return;
+        if (n1 > n) return;
         sb.append('(');
         dfs(ans, sb, n, n1 + 1, n2);
         sb.deleteCharAt(sb.length() - 1);

@@ -29,9 +29,7 @@ public class PathSumIII_437 {
 
     private void dfs(TreeNode root, long targetSum) {
         if (root == null) return;
-        if (targetSum == root.val) {
-            sum++;
-        }
+        if (targetSum == root.val) sum++;
         dfs(root.left, targetSum - root.val);
         dfs(root.right, targetSum - root.val);
     }

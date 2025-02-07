@@ -26,6 +26,7 @@ public class ReverseLinkedListII_92 {
         System.out.println(Arrays.toString(ListNode.convertLinkedList2Array(listNode)));
     }
 
+    //-1->1->2->3->4->5->6
     public ListNode reverseBetween(ListNode head, int left, int right) {
         ListNode node = new ListNode(-1);
         node.next = head;
@@ -33,7 +34,6 @@ public class ReverseLinkedListII_92 {
         for (int i = 0; i < left - 1; i++) {
             pre = pre.next;
         }
-
         ListNode cur = pre.next;
         for (int i = left; i < right; i++) {
             ListNode next = cur.next;

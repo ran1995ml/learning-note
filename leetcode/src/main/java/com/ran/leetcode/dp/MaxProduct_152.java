@@ -17,15 +17,14 @@ public class MaxProduct_152 {
         int max = Integer.MIN_VALUE;
         int curMax = 1;
         int curMin = 1;
-
         for (int num : nums) {
             if (num < 0) {
                 int temp = curMin;
                 curMin = curMax;
                 curMax = temp;
             }
-            curMin = Math.min(curMin * num, num);
-            curMax = Math.max(curMax * num, num);
+            curMax = Math.max(num, curMax * num);
+            curMin = Math.min(num, curMin * num);
             max = Math.max(max, curMax);
         }
         return max;

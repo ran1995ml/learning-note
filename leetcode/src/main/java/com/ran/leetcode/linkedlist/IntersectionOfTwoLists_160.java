@@ -2,6 +2,8 @@ package com.ran.leetcode.linkedlist;
 
 import com.ran.leetcode.entity.ListNode;
 
+import java.util.List;
+
 /**
  * IntersectionOfTwoLists_160
  *

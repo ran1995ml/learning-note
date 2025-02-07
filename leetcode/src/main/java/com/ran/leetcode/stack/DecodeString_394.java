@@ -16,13 +16,11 @@ public class DecodeString_394 {
     }
 
     public String decodeString(String s) {
-        char[] ch = s.toCharArray();
-        Stack<String> stackStr = new Stack<>();
-        Stack<Integer> stackNum = new Stack<>();
         StringBuffer sbStr = new StringBuffer();
         StringBuffer sbNum = new StringBuffer();
-
-        for (char c : ch) {
+        Stack<String> stackStr = new Stack<>();
+        Stack<Integer> stackNum = new Stack<>();
+        for (char c : s.toCharArray()) {
             if (c == '[') {
                 stackStr.push(sbStr.toString());
                 stackNum.push(Integer.parseInt(sbNum.toString()));

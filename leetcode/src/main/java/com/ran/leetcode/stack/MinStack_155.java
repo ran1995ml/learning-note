@@ -31,17 +31,20 @@ public class MinStack_155 {
 
     public void push(int val) {
         if (stack.isEmpty()) {
+            stack.push(val);
             stackMin.push(val);
-        } else if (val <= stackMin.peek()) {
-            stackMin.push(val);
+        } else {
+            if (val <= stackMin.peek()) {
+                stackMin.push(val);
+                stack.push(val);
+            }
         }
-        stack.push(val);
     }
 
     public void pop() {
         if (stack.isEmpty()) throw new IllegalStateException("stack is empty");
-        int val = stack.pop();
-        if (val == stackMin.peek()) {
+        int cur = stack.pop();
+        if (stackMin.peek() == cur) {
             stackMin.pop();
         }
     }
@@ -52,7 +55,7 @@ public class MinStack_155 {
     }
 
     public int getMin() {
-        if (stack.isEmpty()) throw new IllegalStateException("stack is empty");
+        if (stackMin.isEmpty()) throw new IllegalStateException("min stack is empty");
         return stackMin.peek();
     }
 }

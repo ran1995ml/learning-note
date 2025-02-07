@@ -19,16 +19,16 @@ public class FindMin_153 {
             return nums[0];
         } else {
             int left = 0;
-            int right = nums.length - 1;
+            int right = nums.length;
             while (left < right) {
                 int mid = (right - left) / 2 + left;
-                if (nums[mid] < nums[0]) {
-                    right = mid;
-                } else {
+                if (nums[mid] > nums[nums.length - 1]) {
                     left = mid + 1;
+                } else {
+                    right = mid;
                 }
             }
-            return nums[right];
+            return nums[left];
         }
     }
 }

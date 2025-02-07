@@ -35,32 +35,30 @@ public class LRUCache_146 {
     }
 
     public int get(int key) {
-        if (!this.map.containsKey(key)) return -1;
-        Node node = new Node(key, this.map.get(key).value);
-        removeNode(this.map.get(key));
+        if (!map.containsKey(key)) return -1;
+        Node node = new Node(key, map.get(key).value);
+        removeNode(map.get(key));
         addToHead(node);
-        this.map.put(key, node);
+        map.put(key, node);
         return node.value;
     }
 
     public void put(int key, int value) {
         Node node = new Node(key, value);
-        if (this.map.containsKey(key)) {
-            removeNode(this.map.get(key));
-        } else {
-            if (this.capacity == this.map.size()) {
-                this.map.remove(this.tail.pre.key);
-                removeNode(this.tail.pre);
-            }
+        if (map.containsKey(key)) {
+            removeNode(map.get(key));
+        } else if (this.capacity == map.size()) {
+            map.remove(this.tail.pre.key);
+            removeNode(this.tail.pre);
         }
-        this.map.put(key, node);
+        map.put(key, node);
         addToHead(node);
     }
 
     private void addToHead(Node node) {
-        this.head.next.pre = node;
         node.next = this.head.next;
         node.pre = this.head;
+        this.head.next.pre = node;
         this.head.next = node;
     }
 
@@ -70,13 +68,13 @@ public class LRUCache_146 {
     }
 
     private class Node {
-        private int key;
+        public int key;
 
-        private int value;
+        public int value;
 
-        private Node pre;
+        public Node pre;
 
-        private Node next;
+        public Node next;
 
         public Node(int key, int value) {
             this.key = key;

@@ -26,16 +26,14 @@ public class PascalTriangle_118 {
             } else if (i == 1) {
                 ans.add(Arrays.asList(1, 1));
             } else {
-                List<Integer> cur = new ArrayList<>();
                 List<Integer> pre = ans.get(i - 1);
-                cur.add(1);
-                for (int j = 0; j < pre.size(); j++) {
-                    if (j + 1 < pre.size()) {
-                        cur.add(pre.get(j) + pre.get(j + 1));
-                    }
+                List<Integer> list = new ArrayList<>();
+                list.add(1);
+                for (int j = 1; j < i; j++) {
+                    list.add(pre.get(j - 1) + pre.get(j));
                 }
-                cur.add(1);
-                ans.add(cur);
+                list.add(1);
+                ans.add(list);
             }
         }
         return ans;

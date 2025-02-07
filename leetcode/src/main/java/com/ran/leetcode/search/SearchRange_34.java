@@ -30,7 +30,7 @@ public class SearchRange_34 {
                 left = mid + 1;
             }
         }
-        if (left < nums.length && nums[left] == target) index1 = left;
+        if (right < nums.length && nums[right] == target) index1 = right;
         right = nums.length;
         while (left < right) {
             int mid = (right - left) / 2 + left;

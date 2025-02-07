@@ -3,6 +3,7 @@ package com.ran.leetcode.linkedlist;
 import com.ran.leetcode.entity.ListNode;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * RemoveLinkedListElements_203

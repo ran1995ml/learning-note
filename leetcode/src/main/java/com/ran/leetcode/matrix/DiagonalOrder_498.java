@@ -24,7 +24,6 @@ public class DiagonalOrder_498 {
         int index = 0;
         int i = 0;
         int j = 0;
-
         while (index < ans.length) {
             ans[index++] = mat[i][j];
             if ((i + j) % 2 == 0) {

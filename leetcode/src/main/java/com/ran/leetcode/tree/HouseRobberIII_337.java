@@ -31,18 +31,18 @@ public class HouseRobberIII_337 {
         if (root == null) return;
         dfs(root.left, map);
         dfs(root.right, map);
-        int value1 = 0;
-        int value2 = 0;
+        int v1 = 0;
+        int v2 = 0;
         if (root.left != null) {
-            value1 += map.get(root.left);
-            value2 += root.left.left == null ? 0 : map.get(root.left.left);
-            value2 += root.left.right == null ? 0 : map.get(root.left.right);
+            v1 += map.get(root.left);
+            v2 += root.left.left == null ? 0 : map.get(root.left.left);
+            v2 += root.left.right == null ? 0 : map.get(root.left.right);
         }
         if (root.right != null) {
-            value1 += map.get(root.right);
-            value2 += root.right.left == null ? 0 : map.get(root.right.left);
-            value2 += root.right.right == null ? 0 : map.get(root.right.right);
+            v1 += map.get(root.right);
+            v2 += root.right.left == null ? 0 : map.get(root.right.left);
+            v2 += root.right.right == null ? 0 : map.get(root.right.right);
         }
-        map.put(root, Math.max(value1, value2 + root.val));
+        map.put(root, Math.max(root.val + v2, v1));
     }
 }

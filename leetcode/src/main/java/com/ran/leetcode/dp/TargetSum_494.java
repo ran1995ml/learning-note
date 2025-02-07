@@ -37,16 +37,19 @@ public class TargetSum_494 {
         return dp[nums.length][count];
     }
 
+    //sum1 - sum2 = target
+    //sum1 + sum2 = sum
+    //sum1 = (target + sum) / 2
     public int findTargetSumWays1(int[] nums, int target) {
         int sum = 0;
         for (int num : nums) {
             sum += num;
         }
-        if ((sum + target) % 2 > 0 || sum + target < 0) return 0;
-        int count = (sum + target) / 2;
+        if (target + sum < 0) return 0;
+        if ((target + sum) % 2 > 0) return 0;
+        int count = (target + sum) / 2;
         int[] dp = new int[count + 1];
         dp[0] = 1;
-
         for (int num : nums) {
             for (int j = count; j >= num; j--) {
                 dp[j] = dp[j] + dp[j - num];

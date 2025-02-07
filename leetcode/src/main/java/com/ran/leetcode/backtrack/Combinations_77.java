@@ -19,19 +19,18 @@ public class Combinations_77 {
 
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> ans = new ArrayList<>();
-        dfs(ans, new ArrayList<>(), n, k, 1);
+        dfs(ans, new ArrayList<>(), k, n, 1);
         return ans;
     }
 
-    private void dfs(List<List<Integer>> ans, List<Integer> list, int n, int k, int index) {
+    private void dfs(List<List<Integer>> ans, List<Integer> list, int k, int n, int index) {
         if (list.size() == k) {
             ans.add(new ArrayList<>(list));
             return;
         }
-
         for (int i = index; i <= n; i++) {
             list.add(i);
-            dfs(ans, list, n, k, i + 1);
+            dfs(ans, list, k, n, i + 1);
             list.remove(list.size() - 1);
         }
     }
