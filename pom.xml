@@ -10,11 +10,13 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>java/effective-java</module>
-        <module>leetcode</module>
+        <module>algorithm/leetcode</module>
         <module>java/spi</module>
         <module>java/jackson</module>
         <module>design-pattern</module>
         <module>java/concurrency</module>
+        <module>java/backend</module>
+        <module>algorithm/algorithm</module>
     </modules>
 
     <properties>
