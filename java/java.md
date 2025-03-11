@@ -204,6 +204,30 @@
 
 `minorGC`：只针对年轻代回收，有 `Eden` 和两个 `Survivor`，`Eden` 空间不足时触发，转移到空闲的 `Survisor` 或老年代。`MajorGC`：主要针对老年代回收，老年代空间不足或检测到老年代晋升速度过快触发，回收需要更长时间。`FullGC`：对整个堆回收，`MinorGC` 后老年代空间不足，需要暂停所有工作线程。
 
+# IDEA提效
+`Code Completion` 取消 `Match case` 不区分大小写提示
+`Auto Import` 增加 `Optimize imports` 和 `Add unambigous imports`
+`File Encoding` 和 `Console` 字符集统一 `utf-8`
+设置 `File and Code Templates`，`Includes` 添加 `File Header`
+```
+/**
+ * ${NAME}
+ * @author rwei
+ * @since ${DATE} - ${TIME}
+ */
+*/
+```
+`Compile` 设置 `Build project automatically` 和 `Compile independent modules in parallel`
+`Editor Tabs` 取消设置 `Show tabs in one row` 
+
+`Debug`：
+`Step Over` 单步执行；
+`Step Into` 进入方法；
+`Step Out` 跳出方法；
+`Resume Program` 跳到下一个断点；
+`Force Step Into` 进入 `SDK` 的方法；
+`Return to Cursor` 跳转到光标位置；
+`Show Execution Point` 光标跳转到当前执行的代码行；
 
 
 
