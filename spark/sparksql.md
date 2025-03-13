@@ -437,8 +437,6 @@ private def withSelectQuerySpecification(
 
 此时生成的 `LogicalPlan` 是 `Unresolved`，下一步需要将 `Unresolved` 对象解析成有类型的。该过程在 `QueryExecution` 初始化过程中进行。对 `UnresolvedLogicalPlan` 绑定、解析、优化操作，主要方法都是基于 `Rule`。
 
-
-
 ```scala
 def ofRows(sparkSession: SparkSession, logicalPlan: LogicalPlan, tracker: QueryPlanningTracker)
   : DataFrame = sparkSession.withActive {
@@ -449,7 +447,7 @@ def ofRows(sparkSession: SparkSession, logicalPlan: LogicalPlan, tracker: QueryP
 }
 ```
 
-`Analyzer` 解析 `LogicalPlan`，确定数据源的表信息，对不同的节点执行 `rule`，映射到具体的属性和类型，构建 `Dataset`。
+`Analyzer` 解析 `LogicalPlan`，确定数据源的表信息，对每个节点执行一系列 `Rule`。
 
 ```scala
 def assertAnalyzed(): Unit = analyzed
@@ -459,3 +457,96 @@ lazy val analyzed: LogicalPlan = executePhase(QueryPlanningTracker.ANALYSIS) {
 }
 ```
 
+一系列 `Rule` 组成一个 `Batch`，解析 `LogicalPlan` 在基类 `RunExecutor` 实现，具体的 `Rule` 在子类实现
+
+```scala
+def execute(plan: TreeType): TreeType = {
+  var curPlan = plan
+  val queryExecutionMetrics = RuleExecutor.queryExecutionMeter
+  val planChangeLogger = new PlanChangeLogger[TreeType]()
+  val tracker: Option[QueryPlanningTracker] = QueryPlanningTracker.get
+  val beforeMetrics = RuleExecutor.getCurrentMetrics()
+
+  // Run the structural integrity checker against the initial input
+  if (!isPlanIntegral(plan, plan)) {
+    throw QueryExecutionErrors.structuralIntegrityOfInputPlanIsBrokenInClassError(
+      this.getClass.getName.stripSuffix("$"))
+  }
+
+  batches.foreach { batch =>
+    val batchStartPlan = curPlan
+    var iteration = 1
+    var lastPlan = curPlan
+    var continue = true
+
+    // Run until fix point (or the max number of iterations as specified in the strategy.
+    while (continue) {
+      //对LogicalPlan执行每个Rule
+      curPlan = batch.rules.foldLeft(curPlan) {
+        case (plan, rule) =>
+          val startTime = System.nanoTime()
+          val result = rule(plan)
+          val runTime = System.nanoTime() - startTime
+          val effective = !result.fastEquals(plan)
+
+          if (effective) {
+            queryExecutionMetrics.incNumEffectiveExecution(rule.ruleName)
+            queryExecutionMetrics.incTimeEffectiveExecutionBy(rule.ruleName, runTime)
+            planChangeLogger.logRule(rule.ruleName, plan, result)
+          }
+          queryExecutionMetrics.incExecutionTimeBy(rule.ruleName, runTime)
+          queryExecutionMetrics.incNumExecution(rule.ruleName)
+
+          // Record timing information using QueryPlanningTracker
+          tracker.foreach(_.recordRuleInvocation(rule.ruleName, runTime, effective))
+
+          // Run the structural integrity checker against the plan after each rule.
+          if (effective && !isPlanIntegral(plan, result)) {
+            throw QueryExecutionErrors.structuralIntegrityIsBrokenAfterApplyingRuleError(
+              rule.ruleName, batch.name)
+          }
+
+          result
+      }
+      iteration += 1
+      if (iteration > batch.strategy.maxIterations) {
+        // Only log if this is a rule that is supposed to run more than once.
+        if (iteration != 2) {
+          val endingMsg = if (batch.strategy.maxIterationsSetting == null) {
+            "."
+          } else {
+            s", please set '${batch.strategy.maxIterationsSetting}' to a larger value."
+          }
+          val message = s"Max iterations (${iteration - 1}) reached for batch ${batch.name}" +
+            s"$endingMsg"
+          if (Utils.isTesting || batch.strategy.errorOnExceed) {
+            throw new RuntimeException(message)
+          } else {
+            logWarning(message)
+          }
+        }
+        // Check idempotence for Once batches.
+        if (batch.strategy == Once &&
+          Utils.isTesting && !excludedOnceBatches.contains(batch.name)) {
+          checkBatchIdempotence(batch, curPlan)
+        }
+        continue = false
+      }
+
+      if (curPlan.fastEquals(lastPlan)) {
+        logTrace(
+          s"Fixed point reached for batch ${batch.name} after ${iteration - 1} iterations.")
+        continue = false
+      }
+      lastPlan = curPlan
+    }
+
+    planChangeLogger.logBatch(batch.name, batchStartPlan, curPlan)
+  }
+  planChangeLogger.logMetrics(RuleExecutor.getCurrentMetrics() - beforeMetrics)
+
+  curPlan
+}
+```
+
+解析 `UnresolvedLogicalPlan`，主要是 `ResolveRelations` 实现
